@@ -1,3 +1,6 @@
+# VS COde
+.vscode/
+
 # build output
 dist/
 

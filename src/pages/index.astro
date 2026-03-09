@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+import TitleSection from '@/components/common/TitleSection.astro';
+
+import MusicVideoPlayer from "@/components/MusicVideoPlayer/MusicVideoPlayer.astro"
 ---
 
 <Layout>	
@@ -29,9 +33,12 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <section>
-    Music
-    - Descripcion: link a yt
-    - MusicPlayer
+    <TitleSection
+      titulo="Producción Musical"
+    >
+      <p>Lo que inicia como un Hobbie desde 2017 hoy se ha convertido en una de mis fortalezas en la <strong>Multimedia.</strong> Cuento con experiencia en <strong>DAWs</strong> como <a href="https://www.image-line.com/">Fl Studio</a> y <a href="https://www.reaper.fm/">Reaper</a>, conocimientos en teoría músical y sobretodo una gran pasión por la música.</p>
+    </TitleSection>
+    <MusicVideoPlayer />
   </section>
 
   <section>

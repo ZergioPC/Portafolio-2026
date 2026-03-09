@@ -1,0 +1,44 @@
+---
+import music_data from "@/db/music.json"
+---
+<div class="video-player">
+  <div class="yt-frame">
+    <iframe 
+    id="ytIframe" 
+    referrerpolicy="strict-origin-when-cross-origin"
+    />
+  </div>
+  <div class="info">
+  </div>
+  <div class="list">
+    <ul>{music_data.map(song => 
+      <li class="music-list" data-yt-id={`${song.id}`}>{song.titulo}</li>
+    )}</ul>
+  </div>
+</div>
+
+<script>
+  import "./script.ts"
+</script>
+
+<style>
+  .video-player {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    gap: 10px;
+    max-width: 800px;
+    height: 80vh;
+    margin: 0 auto;
+  }
+
+  .yt-frame {grid-column: 1/2; grid-row: 1/2;}
+  .info {grid-column: 1/2; grid-row: 2/3;}
+  .list {grid-column: 2/3; grid-row: 1/3;}
+
+  .yt-frame iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+</style>

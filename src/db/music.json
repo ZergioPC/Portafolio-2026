@@ -1,0 +1,57 @@
+[
+  {
+    "id":"2axBDMIuBjk",
+    "titulo": "All Falls Down [Alan Walker]",
+    "type": "Remix",
+    "genere": "EDM",
+    "release": "12/2025"
+  },{
+    "id":"xyHFvTxDGv0",
+    "titulo": "Menu Song",
+    "type": "Soundtrack",
+    "genere": "Game OST",
+    "release": "05/2025"
+  },{
+    "id":"EyJr46FfyB4",
+    "titulo": "Base after Base [DJVI]",
+    "type": "Remix",
+    "genere": "EDM",
+    "release": "12/2023"
+  },{
+    "id":"UMSm6YpeDJw",
+    "titulo": "Raining Cloud with a Smile",
+    "type": "Original",
+    "genere": "Future Base",
+    "release": "09/2023"
+  },{
+    "id":"F2y_kDiPmiA",
+    "titulo": "Sonic Blaster [F-777]",
+    "type": "Remix",
+    "genere": "EDM",
+    "release": "08/2023"
+  },{
+    "id":"A3pPXyZeINg",
+    "titulo": "C . A",
+    "type": "Original",
+    "genere": "Lofi",
+    "release": "11/2022"
+  },{
+    "id":"zdIUDJ6p570",
+    "titulo": "One Summer's Day [Ghibli]",
+    "type": "Remix",
+    "genere": "Lofi",
+    "release": "10/2022"
+  },{
+    "id":"XsHcXb5DyqM",
+    "titulo": "The History",
+    "type": "Soundtrack",
+    "genere": "Game OST",
+    "release": "12/2020"
+  },{
+    "id":"3ArP_P1CcLU",
+    "titulo": "A Cruel Angel's Thesis [Evangelion]",
+    "type": "Remix",
+    "genere": "Electro Swing",
+    "release": "08/2020"
+  }
+]
