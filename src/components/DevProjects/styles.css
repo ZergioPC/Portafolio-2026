@@ -1,0 +1,40 @@
+.info, .draws {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info {justify-content: flex-end;}
+.draws {justify-content: flex-start;}
+
+.lang-container {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  gap: 5px;
+}
+
+.lang-container li {
+  text-align: center !important;
+}
+
+.lang {
+  text-align: center;
+  font-size: 0.6em;
+}
+
+.lang-red { background-color: red;}
+.lang-yellow { background-color: yellow;}
+.lang-blue { background-color: blue;}
+.lang-cyan { background-color: cyan;}
+
+.icon-rotate {
+  transition-duration: 200ms;
+  color: gray;
+}
+
+.icon-rotate:hover {
+  color: red;
+  transform: rotate3d(-1,0.4,0.1,25deg) scale(1.2);
+  filter: drop-shadow(2px 4px 5px rgba(0, 0, 0, 0.2));
+}

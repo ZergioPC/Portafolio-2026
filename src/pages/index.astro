@@ -1,12 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
 
 import TitleSection from '@/components/common/TitleSection.astro';
 
+import DevProjects from '@/components/DevProjects/DevProjects.astro';
 import MusicVideoPlayer from "@/components/MusicVideoPlayer/MusicVideoPlayer.astro"
 ---
 
-<Layout>	
+<Layout>
   <header>
     Header
     - Logotipo
@@ -28,8 +29,8 @@ import MusicVideoPlayer from "@/components/MusicVideoPlayer/MusicVideoPlayer.ast
       * Imaginatio Web
       * Game
     
-    - Other Projects
-    - Skills
+      - Skills
+    <DevProjects />
   </section>
 
   <section>

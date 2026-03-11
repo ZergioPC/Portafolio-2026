@@ -1,0 +1,94 @@
+---
+import "./styles.css";
+import type { GithubRepo, GithubQueryParams} from "./types.d.ts";
+import IconGithub from "@/components/Icons/IconGithub.astro";
+
+// MARK:Obtener los Repos
+const query:GithubQueryParams = {
+  sort:"updated",
+  direction: "desc",
+  per_page: 12
+}
+// const path_repos = `https://api.github.com/users/zergiopc/repos?sort=${query.sort}&direction=${query.direction}&per_page=${query.per_page}`
+// const repos_response: GithubRepo[] = await fetch(path_repos)
+//   .then(res => res.json())
+//   .then(data => data?.documentation_url ? [] : data)
+
+import repos_response from "./temp.json"
+
+function validarRepo(id:number): Boolean {
+  const exluded_repos = [
+    151878947, // fork de hyperblog (old curso platzi)
+    722739392, // portafolio antiguo
+  ]
+  return !exluded_repos.includes(id)
+}
+
+const repos_result = repos_response.filter(repo => validarRepo(repo.id))
+
+
+
+---
+
+
+
+<!-- MARK: Componente -->
+<h3>Otros Proyectos</h3>
+<div class="projects-container">
+  {repos_result.map(repo => (
+    <article>
+      {repo.fork && <span>fork</span>}
+      <div class="info">
+        <h4>{repo.name.replace(/[-_]/g, " ")}</h4>
+        <p>{repo.description.length >= 50 ? repo.description.slice(0,47)+"..." : repo.description}</p>
+      </div>
+      <div class="draws">
+        <a href={repo.html_url} target="_blank" class="icon-rotate">
+          <IconGithub size="100%"/>
+        </a>
+        <ul data-langs={repo.languages_url} class="lang-container"/>
+      </div>
+    </article>
+  ))}
+</div>
+
+<script>
+  import "./script.ts"
+</script>
+
+
+<style>
+  .projects-container{ 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  article span {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    transform: rotate(15deg);
+  }
+
+  article {
+    position: relative;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    gap: 20px;
+    margin: 0 auto;
+    padding: 10px;
+    height: 100px;
+    width: 300px;
+    aspect-ratio: 5/3;
+    font-size: 1.0rem;
+    border: solid 2px black;
+  }
+
+  article a {
+    display: block;
+    width: 100%;
+  }
+</style>
