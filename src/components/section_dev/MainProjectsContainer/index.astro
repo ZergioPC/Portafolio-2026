@@ -1,0 +1,59 @@
+---
+import Image from "astro/components/Image.astro"
+
+//Game Assets
+import game_titulo from "@/assets/dev/main_projects/game/capa_titulo.png"
+import game_player from "@/assets/dev/main_projects/game/capa_player.png"
+import game_bg from "@/assets/dev/main_projects/game/capa_juego_bg.jpg"
+
+import styles from "./styles.module.css"
+import CardMainProject from "@/components/section_dev/CardMainProject/index.astro"
+---
+
+<div>
+  <button id="btnReset">Back</button>
+
+  <CardMainProject data-dev-card data-dev-index="0"  card-state="default">
+    <div slot="portada">
+      <picture class={styles.CardGame}>
+        <img src={game_bg.src} alt="Card Game Bg" class={styles.CardGameBg}>
+        <Image src={game_titulo}  alt="Card Game titulo" class={styles.CardGameTitle}/>
+        <Image src={game_player}  alt="Card Game player" class={styles.CardGamePlayer}/>
+      </picture>
+    </div>
+    <div slot="content">
+      paco
+    </div>
+  </CardMainProject>
+
+  <CardMainProject data-dev-card data-dev-index="1" card-state="default">
+    <div slot="portada">
+      pepe
+    </div>
+    <div slot="content">
+      paco
+    </div>
+  </CardMainProject>
+</div>
+
+<script>
+  import "./script.ts"
+</script>
+
+<style>
+  div {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #btnReset {
+    z-index: 3;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

@@ -1,0 +1,47 @@
+.CardGame {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.CardGameBg {
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.CardGameTitle {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  aspect-ratio: 1/1.1;
+  width: 300px;
+  height: auto;
+  animation-name: card-game-anim;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.CardGamePlayer {
+  z-index: 3;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  aspect-ratio: 1/1.5;
+  height: auto;
+  width: 100px;
+  animation-name: card-game-anim;
+  animation-duration: 3.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes card-game-anim {
+  0% { transform: scale(0.75); }
+  100% { transform: scale(0.80); }
+}
