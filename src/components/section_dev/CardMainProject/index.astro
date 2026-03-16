@@ -15,7 +15,9 @@
 <style>
   /* Tarjeta */
   article {
-    height: 300px;
+    --size-value: 400px;
+
+    height: var(--size-value);
     background-color: gray;
     border-radius: 20px;
     transition: 300ms;
@@ -25,13 +27,12 @@
   article > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    aspect-ratio: 2/1;
     height: 100%;
-    width: auto;
+    width: 100%;
   }
 
-  article[card-state="default"] { width: 300px;}
-  article[card-state="open"] { width: 600px;}
+  article[card-state="default"] { width: var(--size-value);}
+  article[card-state="open"] { width: calc(var(--size-value) * 2);}
   article[card-state="close"] { width: 0px;}
 
   /* Contenido */
@@ -43,12 +44,17 @@
   }
 
   .portada {
+    z-index: 2;
+    cursor: pointer;
     background-color: #fff;
     overflow: hidden;
   }
 
   .content {
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 15px;
     background-color: aqua;
   }

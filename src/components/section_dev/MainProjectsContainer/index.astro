@@ -1,16 +1,21 @@
 ---
 import Image from "astro/components/Image.astro"
+import IconGithub from "@/components/Icons/IconGithub.astro"
+import IconItchio from "@/components/Icons/IconItchio.astro"
 
 //Game Assets
 import game_titulo from "@/assets/dev/main_projects/game/capa_titulo.png"
 import game_player from "@/assets/dev/main_projects/game/capa_player.png"
 import game_bg from "@/assets/dev/main_projects/game/capa_juego_bg.jpg"
 
+//Imaginatio Assets
+import imaginatio_logo from "@/assets/dev/main_projects/imaginatio/logo_v01.png"
+
 import styles from "./styles.module.css"
 import CardMainProject from "@/components/section_dev/CardMainProject/index.astro"
 ---
 
-<div>
+<div class="main-container">
   <button id="btnReset">Back</button>
 
   <CardMainProject data-dev-card data-dev-index="0"  card-state="default">
@@ -22,16 +27,33 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
       </picture>
     </div>
     <div slot="content">
-      paco
+      <a 
+        class="icon"
+        target="_blank"
+        href="https://zergiopc.itch.io/how-not-to-survive-a-robot-invasion" 
+      >
+        <IconItchio size="40px"/>
+      </a>
+      <p>Este es el <strong>primer proyecto</strong> de videojuego que realizo de forma <strong>profesional,</strong> tanto el apartado visual, la música, el diseño de sonido y la programación</p>
     </div>
   </CardMainProject>
 
   <CardMainProject data-dev-card data-dev-index="1" card-state="default">
     <div slot="portada">
-      pepe
+      <picture class={styles.CardImaginatio}>
+        <div class={styles.CardImaginatioBg}/>
+        <Image src={imaginatio_logo} alt="Card Imaginatio Logo" class={styles.CardImaginatioLogo} />
+      </picture>
     </div>
     <div slot="content">
-      paco
+      <a 
+        class="icon"
+        target="_blank"
+        href="https://github.com/ZergioPC/UMNG_Imaginatio" 
+      >
+        <IconGithub size="40px"/>
+      </a>
+      <p>Este proyecto busca la creación de una <strong>Plataforma Comunitaria</strong> mediante la cual se de gestión y promoción al <strong>Imaginatio,</strong> evento organizado por la carrera de <strong>Ingeniería Multimedia</strong> en la <strong>Universidad Militar Nueva Granada.</strong></p>
     </div>
   </CardMainProject>
 </div>
@@ -41,13 +63,23 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
 </script>
 
 <style>
-  div {
+  .main-container {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 10px;
+  }
+
+  .icon {
+    color: blueviolet;
+    fill: blueviolet;
+    text-decoration: none;
+  }
+
+  .icon:hover {
+    color: red;
+    fill: red;
   }
 
   #btnReset {

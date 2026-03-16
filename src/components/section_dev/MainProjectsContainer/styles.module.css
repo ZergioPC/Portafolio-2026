@@ -1,4 +1,5 @@
-.CardGame {
+.CardGame, .CardImaginatio {
+  pointer-events: none;
   position: relative;
   display: block;
   width: 100%;
@@ -6,25 +7,37 @@
   overflow: hidden;
 }
 
-.CardGameBg {
-  height: 300px;
+.CardGameBg, .CardImaginatioBg {
+  height: var(--size-value);
   object-fit: cover;
   object-position: center;
 }
 
-.CardGameTitle {
+.CardImaginatioBg {
+  width: var(--size-value);
+  background: #fbbc3f;
+  background: radial-gradient(circle, rgba(251, 188, 63, 1) 0%, rgba(252, 70, 107, 1) 100%);
+}
+
+.CardGameTitle, .CardImaginatioLogo {
   z-index: 2;
   position: absolute;
   top: 0;
   left: 0;
   aspect-ratio: 1/1.1;
-  width: 300px;
+  width: var(--size-value);
   height: auto;
-  animation-name: card-game-anim;
   animation-duration: 4s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: ease-in-out;
+}
+
+.CardGameTitle { animation-name: card-game-anim;}
+
+.CardImaginatioLogo {
+  scale: 1.1;
+  animation-name: card-imaginatio-anim;
 }
 
 .CardGamePlayer {
@@ -39,9 +52,21 @@
   animation-duration: 3.5s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.8));
 }
 
 @keyframes card-game-anim {
-  0% { transform: scale(0.75); }
-  100% { transform: scale(0.80); }
+  0% { transform: scale(0.75);}
+  100% { transform: scale(0.80);}
+}
+
+@keyframes card-imaginatio-anim {
+  0% { 
+    transform: scale(0.75); 
+    filter: drop-shadow(15px 15px 25px rgba(0, 0, 0, 0.8));
+  }
+  100% { 
+    transform: scale(0.80); 
+    filter: drop-shadow(30px 30px 10px rgba(0, 0, 0, 0.3));
+  }
 }

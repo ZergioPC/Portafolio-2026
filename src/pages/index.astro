@@ -1,10 +1,11 @@
 ---
-import Layout from '@/layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro'
 
-import TitleSection from '@/components/common/TitleSection.astro';
+import TitleSection from '@/components/common/TitleSection.astro'
+import DevMainProjects from '@/components/section_dev/MainProjectsContainer/index.astro'
+import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
-import DevProjects from '@/components/DevProjects/DevProjects.astro';
-import MusicVideoPlayer from "@/components/MusicVideoPlayer/MusicVideoPlayer.astro"
+import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
 ---
 
 <Layout>
@@ -24,13 +25,16 @@ import MusicVideoPlayer from "@/components/MusicVideoPlayer/MusicVideoPlayer.ast
   </section>
 
   <section>
-    Dev
-    - Main Projects
-      * Imaginatio Web
-      * Game
+    <TitleSection
+      titulo="Programación"
+    >
+      <p>Es una de mis principales habilidades, cuento con experiencia en el <strong>desarrollo de videojuegos</strong> y en la <strong>programación web.</strong> habiendo desarrollado proyectos desde el bocetado inicial hasta la entrega final, y de ser necesario, iteraciones para mejorar o agregar funcionalidades nuevas.</p>
+    </TitleSection>
+
+    <DevMainProjects />
     
       - Skills
-    <DevProjects />
+    <DevOtherProjects />
   </section>
 
   <section>
