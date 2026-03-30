@@ -1,0 +1,18 @@
+---
+import "./styles.css"
+
+const { id, name } = Astro.props
+const url_link = `https://sketchfab.com/models/${id}/embed?autostart=1&transparent=1&ui_hint=1&`
+
+---
+
+<article class="sketchfab-embed-wrapper"> 
+  <iframe
+    allow="autoplay; fullscreen; xr-spatial-tracking" 
+    execution-while-out-of-viewport 
+    execution-while-not-rendered 
+    web-share 
+    src={url_link}
+  ></iframe>
+  <span>{name}</span>
+</article>

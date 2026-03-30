@@ -1,0 +1,21 @@
+.sketchfab-embed-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+.sketchfab-embed-wrapper iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.sketchfab-embed-wrapper span {
+  margin: 10px 0;
+  font-size: 1.2em;
+  text-align: center;
+}

@@ -6,6 +6,7 @@ import DevMainProjects from '@/components/section_dev/MainProjectsContainer/inde
 import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
+import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
 ---
 
 <Layout>
@@ -53,9 +54,12 @@ import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.
   </section>
 
   <section>
-    Modelado 3d
-    - Modelos
-    - Descripcion
+    <TitleSection
+      titulo="Modelado 3D"
+    >
+      <p>Algunos ejemplos de modelos realizados.</p>
+    </TitleSection>
+    <Models3DContainer />
   </section>
 
   <section>

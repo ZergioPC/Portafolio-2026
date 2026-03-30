@@ -1,0 +1,29 @@
+---
+type Model = {
+  id: string;
+  name: string;
+}
+
+import SketchfabModelViewer from "@/components/section_model3d/SketchfabModelViewer/index.astro"
+import rawData from "@/db/3dmodels.json"
+
+const models_data: Model[] = rawData
+---
+
+<div>
+  {models_data.map(model => 
+    (<SketchfabModelViewer 
+      id={model.id}
+      name={model.name}
+    />)
+  )}
+</div>
+
+<style>
+  div {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(220px, 25%, 320px), 1fr));
+    gap: clamp(12px, 2vw, 24px);
+  }
+</style>
