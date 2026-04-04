@@ -2,6 +2,8 @@
 import Layout from '@/layouts/Layout.astro'
 
 import TitleSection from '@/components/common/TitleSection.astro'
+import VideoFaderGallery from '@/components/common/VideoFaderGallery.astro';
+
 import DevMainProjects from '@/components/section_dev/MainProjectsContainer/index.astro'
 import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
@@ -48,17 +50,15 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
   </section>
 
   <section>
+    <VideoFaderGallery
+      videos={["crc3zlX2z3E", "KGOT1JO_v28", "fzZx6tQ_jLc"]}
+      text="Animación 3D"
+      subtext="Mi mayor sueño ha sido ser animador, darle vida a historias a travez del 3d es una de mis cosas favoritas."
+    />
     Animacion
     - Descripcion
     - Proyectos en IG y YT
-  </section>
 
-  <section>
-    <TitleSection
-      titulo="Modelado 3D"
-    >
-      <p>Algunos ejemplos de modelos realizados.</p>
-    </TitleSection>
     <Models3DContainer />
   </section>
 

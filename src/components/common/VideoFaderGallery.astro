@@ -1,0 +1,228 @@
+---
+interface Props {
+  videos: string[];
+  text: string;
+  subtext?: string;
+}
+
+const { videos, text, subtext } = Astro.props;
+---
+
+<section class="fader-gallery" data-videos={JSON.stringify(videos)}>
+  <!-- Video Layer -->
+  <div class="video-layer">
+    {videos.map((id: string, i: number) => (
+      <div class={`video-slide ${i === 0 ? "active" : ""}`} data-index={i}>
+        <iframe
+          src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0`}
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          loading={i === 0 ? "eager" : "lazy"}
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Gradient Layer -->
+  <div class="gradient-layer" aria-hidden="true"></div>
+
+  <!-- Text Layer -->
+  <div class="text-layer">
+    <div class="text-inner">
+      <p class="eyebrow">— featured</p>
+      <h1 class="headline">{text}</h1>
+      {subtext && <p class="subtext">{subtext}</p>}
+      <div class="dots">
+        {videos.map((_: any, i: number) => (
+          <button
+            class={`dot ${i === 0 ? "active" : ""}`}
+            data-dot={i}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fader-gallery {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+
+  /* ── Video Layer ── */
+  .video-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .video-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .video-slide.active {
+    opacity: 1;
+  }
+
+  .video-slide iframe {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Letterbox override — covers the whole viewport */
+    width: 177.78vh; /* 16/9 × 100vh */
+    height: 56.25vw; /* 9/16 × 100vw */
+    min-width: 100%;
+    min-height: 100%;
+    border: none;
+    pointer-events: none;
+  }
+
+  /* ── Gradient Layer ── */
+  .gradient-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(
+        to top,
+        rgba(5, 5, 5, 0.96) 0%,
+        rgba(5, 5, 5, 0.55) 35%,
+        rgba(5, 5, 5, 0.15) 65%,
+        rgba(5, 5, 5, 0.4) 100%
+      ),
+      linear-gradient(
+        to right,
+        rgba(5, 5, 5, 0.7) 0%,
+        transparent 50%
+      );
+  }
+
+  /* ── Text Layer ── */
+  .text-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    padding: clamp(2rem, 5vw, 4rem);
+  }
+
+  .text-inner {
+    max-width: 680px;
+    animation: textReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .eyebrow {
+    /* font-family: "DM Mono", monospace; */
+    font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 210, 140, 0.75);
+    margin: 0 0 1.2rem;
+  }
+
+  .headline {
+    /* font-family: "Cormorant Garamond", serif; */
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: #f5f0e8;
+    margin: 0 0 1.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .subtext {
+    /* font-family: "DM Mono", monospace; */
+    font-size: clamp(0.75rem, 1.4vw, 0.85rem);
+    font-weight: 300;
+    color: rgba(245, 240, 232, 0.55);
+    line-height: 1.7;
+    margin: 0 0 2.4rem;
+    max-width: 460px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Dots ── */
+  .dots {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+
+  .dot {
+    width: 28px;
+    height: 2px;
+    background: rgba(245, 240, 232, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, width 0.3s;
+    padding: 0;
+  }
+
+  .dot.active {
+    width: 52px;
+    background: rgba(255, 140, 184, 0.9);
+  }
+
+  .dot:hover:not(.active) {
+    background: rgba(245, 240, 232, 0.6);
+  }
+
+  /* ── Animation ── */
+  @keyframes textReveal {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const gallery = document.querySelector(".fader-gallery") as HTMLElement;
+  
+  if (gallery) {
+    const videos: string[] = JSON.parse(gallery.dataset.videos || "[]");
+    const slides = gallery.querySelectorAll<HTMLElement>(".video-slide");
+    const dots = gallery.querySelectorAll<HTMLButtonElement>(".dot");
+    
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    function goTo(index: number) {
+      slides[current].classList.remove("active");
+      dots[current].classList.remove("active");
+      current = (index + videos.length) % videos.length;
+      slides[current].classList.add("active");
+      dots[current].classList.add("active");
+    }
+
+    function startAutoplay() {
+      timer = setInterval(() => goTo(current + 1), 8000);
+    }
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener("click", () => {
+        clearInterval(timer);
+        goTo(i);
+        startAutoplay();
+      });
+    });
+
+    startAutoplay();
+  }
+</script>
