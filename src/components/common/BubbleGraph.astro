@@ -1,0 +1,351 @@
+---
+/**
+ * BubbleGraph.astro
+ * A D3-powered bubble chart where each bubble displays an image.
+ *
+ * Dependencies:
+ *   npm install d3
+ *   npm install --save-dev @types/d3
+ *
+ * Usage:
+ *   import BubbleGraph from '@/components/BubbleGraph.astro';
+ *
+ *   <BubbleGraph
+ *     items={[
+ *       { image: '/img/react.png',  size: 90,  label: 'React'  },
+ *       { image: '/img/astro.png',  size: 60,  label: 'Astro'  },
+ *       { image: '/img/ts.png',     size: 45,  label: 'TypeScript' },
+ *     ]}
+ *     width={700}
+ *     height={500}
+ *     colorAccent="#7c6cfc"
+ *     colorAccentHi="#b3aaff"
+ *     colorLabel="#e8e4ff"
+ *     colorRing="rgba(255,255,255,0.45)"
+ *     colorShadow="rgba(124,108,252,0.7)"
+ *   />
+ */
+
+import * as d3 from 'd3';
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+export interface BubbleItem {
+  /** Public URL or path to the image displayed inside the bubble. */
+  image: string;
+  /**
+   * Relative weight that controls the bubble radius.
+   * Larger values produce bigger bubbles.
+   */
+  size: number;
+  /** Optional caption rendered below the bubble on hover. */
+  label?: string;
+}
+
+interface Props {
+  /** Array of items, each with an image and a size weight. */
+  items: BubbleItem[];
+  /** SVG canvas width in pixels (default: 700). */
+  width?: number;
+  /** SVG canvas height in pixels (default: 500). */
+  height?: number;
+  /** Extra padding between bubbles in pixels (default: 6). */
+  padding?: number;
+  /** Primary accent color used for the hover ring and glow (default: "#7c6cfc"). */
+  colorAccent?: string;
+  /** Lighter accent used for the ring stroke on hover (default: "#b3aaff"). */
+  colorAccentHi?: string;
+  /** Color of the label text shown on hover (default: "#e8e4ff"). */
+  colorLabel?: string;
+  /** Default ring stroke color (default: "rgba(255,255,255,0.45)"). */
+  colorRing?: string;
+  /** Glow color applied via drop-shadow on hover (default: "rgba(124,108,252,0.7)"). */
+  colorShadow?: string;
+}
+
+// ─── Props ────────────────────────────────────────────────────────────────────
+
+const {
+  items,
+  width        = 700,
+  height       = 500,
+  padding      = 6,
+  colorAccent  = '#7c6cfc',
+  colorAccentHi = '#b3aaff',
+  colorLabel   = '#e8e4ff',
+  colorRing    = 'rgba(255,255,255,0.45)',
+  colorShadow  = 'rgba(124,108,252,0.7)',
+} = Astro.props as Props;
+
+// ─── D3 Pack Layout (server-side) ─────────────────────────────────────────────
+
+type RawNode = BubbleItem & { children?: never };
+
+interface HierarchyRoot {
+  children: RawNode[];
+}
+
+const hierarchyData: HierarchyRoot = { children: items };
+
+const root = d3
+  .hierarchy<HierarchyRoot | RawNode>(hierarchyData)
+  .sum((d) => ('size' in d ? (d as RawNode).size : 0));
+
+const packLayout = d3
+  .pack<HierarchyRoot | RawNode>()
+  .size([width, height])
+  .padding(padding);
+
+packLayout(root);
+
+// Leaves carry the computed x, y, r values
+const nodes = root.leaves() as d3.HierarchyCircularNode<RawNode>[];
+
+// ─── Unique IDs (for clipPath elements) ───────────────────────────────────────
+
+const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
+---
+
+<!-- ─── Markup ───────────────────────────────────────────────────────────────── -->
+<div
+  class="bubble-graph-wrapper"
+  style={`
+    width: ${width}px;
+    max-width: 100%;
+    --accent:     ${colorAccent};
+    --accent-hi:  ${colorAccentHi};
+    --label-col:  ${colorLabel};
+    --ring-col:   ${colorRing};
+    --shadow-col: ${colorShadow};
+  `}
+>
+  <svg
+    class="bubble-graph"
+    viewBox={`0 0 ${width} ${height}`}
+    width={width}
+    height={height}
+    aria-label="Bubble graph"
+    role="img"
+  >
+    <defs>
+      <!-- One circular clipPath per bubble -->
+      {nodes.map((node, i) => (
+        <clipPath id={`${uid}-clip-${i}`}>
+          <circle cx={node.x} cy={node.y} r={node.r} />
+        </clipPath>
+      ))}
+
+      <!-- Subtle radial gradient overlay for depth -->
+      <radialGradient id={`${uid}-vignette`} cx="50%" cy="40%" r="60%">
+        <stop offset="0%"   stop-color="rgba(255,255,255,0.18)" />
+        <stop offset="100%" stop-color="rgba(0,0,0,0.22)" />
+      </radialGradient>
+
+      <!-- Drop-shadow filter is handled via CSS drop-shadow() using --shadow-col -->
+    </defs>
+
+    <!-- ── Bubbles ─────────────────────────────────────────────────────────── -->
+    {nodes.map((node, i) => {
+      const item = node.data as RawNode;
+      const diameter = node.r * 2;
+      return (
+        <g
+          class="bubble"
+          data-label={item.label ?? ''}
+          style={`--delay:${i * 80}ms`}
+        >
+          <!-- Image clipped to circle -->
+          <image
+            href={item.image}
+            x={node.x - node.r}
+            y={node.y - node.r}
+            width={diameter}
+            height={diameter}
+            preserveAspectRatio="xMidYMid slice"
+            clip-path={`url(#${uid}-clip-${i})`}
+          />
+
+          <!-- Gradient sheen over the image -->
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r={node.r}
+            fill={`url(#${uid}-vignette)`}
+            class="bubble__sheen"
+          />
+
+          <!-- Stroke ring -->
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r={node.r - 1.5}
+            fill="none"
+            stroke="var(--ring-col)"
+            stroke-width="2"
+            class="bubble__ring"
+          />
+
+          <!-- Invisible hit area for hover / focus -->
+          <circle
+            cx={node.x}
+            cy={node.y}
+            r={node.r}
+            fill="transparent"
+            class="bubble__hit"
+            role="img"
+            aria-label={item.label ?? `Bubble ${i + 1}`}
+            tabindex="0"
+          />
+
+          <!-- Label tooltip -->
+          {item.label && (
+            <text
+              x={node.x}
+              y={node.y}
+              text-anchor="middle"
+              class="bubble__label"
+            >
+              {item.label}
+            </text>
+          )}
+        </g>
+      );
+    })}
+  </svg>
+</div>
+
+<!-- ─── Styles ──────────────────────────────────────────────────────────────── -->
+<style>
+  .bubble-graph-wrapper {
+    /* Color tokens injected as inline CSS variables from props.
+       Fallbacks are kept here as a safety net.                  */
+    --accent:     #7c6cfc;
+    --accent-hi:  #b3aaff;
+    --label-col:  #e8e4ff;
+    --ring-col:   rgba(255, 255, 255, 0.45);
+    --shadow-col: rgba(124, 108, 252, 0.7);
+
+    margin: 0 auto;
+    background: transparent;
+  }
+
+  .bubble-graph {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── Entrance animation ───────────────────────────────────── */
+  .bubble {
+    transform-origin: center;
+    animation: bubbleIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: var(--delay, 0ms);
+  }
+
+  @keyframes bubbleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.35);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ── Hover interactions ───────────────────────────────────── */
+  .bubble .bubble__sheen {
+    transition: opacity 0.25s ease;
+    opacity: 1;
+  }
+
+  .bubble:hover .bubble__sheen,
+  .bubble:focus-within .bubble__sheen {
+    opacity: 0.35;
+  }
+
+  .bubble .bubble__ring {
+    transition:
+      stroke 0.25s ease,
+      stroke-width 0.25s ease;
+  }
+
+  .bubble:hover .bubble__ring,
+  .bubble:focus-within .bubble__ring {
+    stroke: var(--accent-hi);
+    stroke-width: 3;
+  }
+
+  .bubble:hover,
+  .bubble:focus-within {
+    filter: drop-shadow(0 0 12px var(--shadow-col));
+  }
+
+  /* ── Label ────────────────────────────────────────────────── */
+  .bubble__label {
+    font-family: 'DM Mono', 'Courier New', monospace;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    fill: var(--label-col);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    user-select: none;
+    text-shadow: #fff 1px 1px 0px ;
+  }
+
+  .bubble:hover .bubble__label,
+  .bubble:focus-within .bubble__label,
+  .bubble--active .bubble__label {
+    opacity: 1;
+  }
+
+  /* Keep the ring highlight while a bubble is pinned active */
+  .bubble--active .bubble__ring {
+    stroke: var(--accent-hi);
+    stroke-width: 3;
+  }
+
+  .bubble--active {
+    filter: drop-shadow(0 0 12px var(--shadow-col));
+  }
+
+  /* ── Hit area cursor ──────────────────────────────────────── */
+  .bubble__hit {
+    cursor: pointer;
+    /* Removes the square outline triggered by mouse/touch clicks.
+       :focus-visible keeps the ring visible for keyboard navigation. */
+    outline: none;
+  }
+
+  .bubble__hit:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ── Reduced motion ───────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .bubble {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Toggle the label on click; clicking a second time (or another bubble) dismisses it.
+  document.querySelectorAll<SVGGElement>('.bubble').forEach((bubble) => {
+    bubble.querySelector('.bubble__hit')?.addEventListener('click', () => {
+      const isActive = bubble.classList.contains('bubble--active');
+
+      // Deactivate all bubbles first
+      document.querySelectorAll('.bubble--active').forEach((b) => {
+        b.classList.remove('bubble--active');
+      });
+
+      // Re-activate the clicked one only if it wasn't already active
+      if (!isActive) {
+        bubble.classList.add('bubble--active');
+      }
+    });
+  });
+</script>
