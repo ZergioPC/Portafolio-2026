@@ -1,0 +1,98 @@
+---
+export interface Props {
+  size?: number
+}
+
+const { size = 400 } = Astro.props
+
+import logo_boca from "@/assets/logo/logo_boca.png"
+import logo_head from "@/assets/logo/logo_head.png"
+import logo_glasses from "@/assets/logo/logo_glases.png"
+import logo_hair_bot from "@/assets/logo/logo_hair_bot.png"
+import logo_hair_top_vid from "@/assets/logo/logo_hair_top.webm"
+import logo_hair_top_img from "@/assets/logo/logo_hair_top.png"
+---
+
+<figure id="logo-animation" style={{ width: size + "px", height: size + "px" }}>
+  <img src={logo_hair_bot.src} id="logo_hair_bot" alt="">
+  <img src={logo_boca.src} id="logo_boca" alt="">
+  <img src={logo_glasses.src} id="logo_glasses" alt="">
+  <div id="logo_hair_top_wrapper">
+    <img src={logo_hair_top_img.src} id="logo_hair_top_fallback" alt="">
+    <video id="logo_hair_top" autoplay loop muted playsinline>
+      <source src={logo_hair_top_vid} type="video/webm"/>
+    </video>
+  </div>
+</figure>
+
+<script is:inline define:vars={{size}}>
+  const video = document.getElementById('logo_hair_top')
+  const fallback = document.getElementById('logo_hair_top_fallback')
+
+  if(video && fallback){
+    video.addEventListener('error', () => { 
+      video.style.display = 'none' 
+      fallback.style.display = 'block'
+    })
+  }
+
+  const glases = document.getElementById('logo_glasses')
+  const boca = document.getElementById('logo_boca')
+  const hair_top_wrapper = document.getElementById('logo_hair_top_wrapper')
+  const hair_bot = document.getElementById('logo_hair_bot')
+
+  let ajuste = size / window.innerWidth  
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 2
+    const y = (e.clientY / window.innerHeight - 0.5) * 2
+
+    if (glases) glases.style.transform = `translate(${x * 10 * ajuste}px, ${y * 15 * ajuste}px)`
+    if (boca) boca.style.transform = `translate(${x * 10 * ajuste}px, ${y * 8 * ajuste}px)`
+    if (hair_top_wrapper) hair_top_wrapper.style.transform = `translate(${x * 20 * ajuste}px, ${y * 12 * ajuste}px)`
+    if (hair_bot) hair_bot.style.transform = `translate(${x * 5 * ajuste}px, ${y * 2 * ajuste}px)`
+  })
+</script>
+
+<style is:raw>
+  body {
+    background-color: black;
+  }
+
+  #logo-animation {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  #logo_head,
+  #logo_hair_bot,
+  #logo_glasses,
+  #logo_boca {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #logo_hair_top_wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #logo_hair_top,
+  #logo_hair_top_fallback {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  #logo_hair_top_fallback { display: none; }
+</style>
