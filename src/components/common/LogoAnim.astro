@@ -53,20 +53,30 @@ import logo_hair_top_img from "@/assets/logo/logo_hair_top.png"
     if (hair_bot) hair_bot.style.transform = `translate(${x * 5 * ajuste}px, ${y * 2 * ajuste}px)`
   })
 </script>
-
-<style is:raw>
-  body {
-    background-color: black;
-  }
-
+<style>
   #logo-animation {
     margin: 0;
     padding: 0;
     position: relative;
     background-color: white;
-    border-radius: 50%;
+    clip-path: circle(0% at 50% 50%);
+    animation-name: logo-spawn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0,.78,.21,1.01);
+    animation-delay: 1s;
   }
-
+  
+  @keyframes logo-spawn {
+    0%{
+      clip-path: circle(0% at 50% 50%);
+    }
+    100% {
+      clip-path: circle(50% at 50% 50%);
+    }
+  }
+</style>
+<style is:raw>
   #logo_head,
   #logo_hair_bot,
   #logo_glasses,

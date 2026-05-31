@@ -4,6 +4,10 @@ import Layout from '@/layouts/Layout.astro'
 import TitleSection from '@/components/common/TitleSection.astro'
 import VideoFaderGallery from '@/components/common/VideoFaderGallery.astro';
 
+import LogoAnim from '@/components/common/LogoAnim.astro';
+import WordSwitcher from '@/components/common/WordSwitcher.astro';
+import BubbleGraph from '@/components/common/BubbleGraph.astro';
+
 import DevMainProjects from '@/components/section_dev/MainProjectsContainer/index.astro'
 import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
@@ -24,7 +28,25 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
   </header>
 
   <section>
-    logo - Frase de presentacion
+    <div>
+      <LogoAnim size={300}/>
+    </div>
+    <div>
+      <h1>Sergio Palacios</h1>
+      <div>
+        <WordSwitcher 
+          words={["Programador","Músico","Videojuegos","Modelado 3D", "Animación", "Multimedia", "Audiovisuales"]}
+          time={1100}
+        />
+      </div>
+      <p>Ingeniero multimedia, apasionado por el entretenimiento y contar buenas historias.</p>
+      <ul>
+        <li>Github</li>
+        <li>Sketchfab</li>
+        <li>Linkedin</li>
+        <li>Instagram</li>
+      </ul>
+    </div>
   </section>
 
   <section>
@@ -35,8 +57,27 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
     </TitleSection>
 
     <DevMainProjects />
-    
-      - Skills
+    <BubbleGraph
+      items={[
+        { image: "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
+        { image: "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
+        { image: "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
+        { image: "/third_part_logos/postgresql.png",  size: 60,  label: 'PostgreSQL'},
+        { image: "/third_part_logos/fastapi.svg",  size: 60,  label: 'FastApi'},
+        { image: "/third_part_logos/astro.png",  size: 60,  label: 'Astro'},
+        { image: "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
+        { image: "/third_part_logos/react-logo.svg",  size: 60,  label: 'React'},
+        { image: "/third_part_logos/tux-linux.svg",  size: 60,  label: 'Linux'},
+        { image: "/third_part_logos/ts-logo-128.svg",  size: 60,  label: 'Typescript'},
+      ]}
+      width={700}
+      height={500}
+      colorAccent="#7c6cfc"
+      colorAccentHi="#b3aaff"
+      colorLabel="#000"
+      colorRing="rgba(255,255,255,0.45)"
+      colorShadow="rgba(124,108,252,0.0)"
+    />
     <DevOtherProjects />
   </section>
 

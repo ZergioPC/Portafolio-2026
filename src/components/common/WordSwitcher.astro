@@ -1,0 +1,28 @@
+---
+export interface Props {
+  words: String[],
+  time: Number
+}
+
+const { words=[], time=1000 } = Astro.props
+---
+
+<span id="word-swithcher">{words[0]}</span>
+
+<script is:inline define:vars={{words, time}}>
+  const $wordSpan = document.getElementById("word-swithcher")
+  let word_switch_counter = 1
+
+  if ($wordSpan) {
+    setInterval(()=>{
+      $wordSpan.innerText = words[word_switch_counter]
+
+      if (word_switch_counter >= words.length-1){
+        word_switch_counter = 0
+      } else {
+        word_switch_counter++
+      }
+    }, time)
+  }
+
+</script>

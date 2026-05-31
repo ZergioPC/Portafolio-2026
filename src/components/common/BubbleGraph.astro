@@ -61,6 +61,8 @@ interface Props {
   colorRing?: string;
   /** Glow color applied via drop-shadow on hover (default: "rgba(124,108,252,0.7)"). */
   colorShadow?: string;
+  /** Inner padding between the clipped image edge and the ring in px (default: 4). */
+  imageInset?: number;
 }
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -69,12 +71,13 @@ const {
   items,
   width        = 700,
   height       = 500,
-  padding      = 6,
+  padding      = 5,
   colorAccent  = '#7c6cfc',
   colorAccentHi = '#b3aaff',
   colorLabel   = '#e8e4ff',
   colorRing    = 'rgba(255,255,255,0.45)',
   colorShadow  = 'rgba(124,108,252,0.7)',
+  imageInset   = 10,
 } = Astro.props as Props;
 
 // ─── D3 Pack Layout (server-side) ─────────────────────────────────────────────
@@ -131,7 +134,7 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
       <!-- One circular clipPath per bubble -->
       {nodes.map((node, i) => (
         <clipPath id={`${uid}-clip-${i}`}>
-          <circle cx={node.x} cy={node.y} r={node.r} />
+          <circle cx={node.x} cy={node.y} r={node.r - imageInset} />
         </clipPath>
       ))}
 
@@ -147,21 +150,22 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
     <!-- ── Bubbles ─────────────────────────────────────────────────────────── -->
     {nodes.map((node, i) => {
       const item = node.data as RawNode;
-      const diameter = node.r * 2;
+      const innerR = node.r - imageInset;
+      const innerD = innerR * 2;
       return (
         <g
           class="bubble"
           data-label={item.label ?? ''}
           style={`--delay:${i * 80}ms`}
         >
-          <!-- Image clipped to circle -->
+          <!-- Image clipped to circle (with inset padding) -->
           <image
             href={item.image}
-            x={node.x - node.r}
-            y={node.y - node.r}
-            width={diameter}
-            height={diameter}
-            preserveAspectRatio="xMidYMid slice"
+            x={node.x - innerR}
+            y={node.y - innerR}
+            width={innerD}
+            height={innerD}
+            preserveAspectRatio="xMidYMid meet"
             clip-path={`url(#${uid}-clip-${i})`}
           />
 
