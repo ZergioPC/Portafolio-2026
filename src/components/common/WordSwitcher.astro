@@ -14,13 +14,13 @@ const { words = [], colors = [], time = 2200 } = Astro.props;
 
 <script is:inline define:vars={{ words, colors, time }}>
   const el = document.getElementById('word-switcher');
-  const CHARS = ['🔥','⚡','🚀','💻','🛸','👾','🎲','💥','🌀','🔮','⚙️','🧩','🎮','🌊'];
+  const CHARS = ['.','|','🚀','💻','🛸','👾','#','⚙️','🧩','🎮'];
   
   let idx = 1;
 
   function glitchTo(target, color) {
     if (color) el.style.setProperty('--current-color', color);
-    const maxFrames = 24;
+    const maxFrames = 12;
     let frame = 0;
     const tick = () => {
       if (frame >= maxFrames) {
@@ -28,7 +28,7 @@ const { words = [], colors = [], time = 2200 } = Astro.props;
         return;
       }
       // All random until the very last frames
-      const revealStart = Math.floor(maxFrames * 0.75);
+      const revealStart = Math.floor(maxFrames * 0.25);
       el.textContent = target
         .split('')
         .map((c, i) =>
