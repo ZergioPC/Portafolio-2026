@@ -1,34 +1,86 @@
 ---
 export interface Props {
-  words: String[],
-  time: Number
+  words: string[];
+  colors: string[];
+  time: number;
 }
 
-const { words=[], time=1000 } = Astro.props
+const { words = [], colors = [], time = 2200 } = Astro.props;
 ---
 
-<span id="word-swithcher">{words[0]}</span>
+<span class="word-switcher-wrap">
+  <span id="word-switcher">{words[0]}</span></span>
+</span>
 
-<script is:inline define:vars={{words, time}}>
-  const $wordSpan = document.getElementById("word-swithcher")
-  let word_switch_counter = 1
+<script is:inline define:vars={{ words, colors, time }}>
+  const el = document.getElementById('word-switcher');
+  const CHARS = ['🔥','⚡','🚀','💻','🛸','👾','🎲','💥','🌀','🔮','⚙️','🧩','🎮','🌊'];
+  
+  let idx = 1;
 
-  if ($wordSpan) {
-    setInterval(()=>{
-      $wordSpan.innerText = words[word_switch_counter]
-
-      if (word_switch_counter >= words.length-1){
-        word_switch_counter = 0
-      } else {
-        word_switch_counter++
+  function glitchTo(target, color) {
+    if (color) el.style.setProperty('--current-color', color);
+    const maxFrames = 24;
+    let frame = 0;
+    const tick = () => {
+      if (frame >= maxFrames) {
+        el.textContent = target;
+        return;
       }
-    }, time)
+      // All random until the very last frames
+      const revealStart = Math.floor(maxFrames * 0.75);
+      el.textContent = target
+        .split('')
+        .map((c, i) =>
+          frame >= revealStart && i < (frame - revealStart) * (target.length / (maxFrames - revealStart))
+            ? c
+            : CHARS[Math.floor(Math.random() * CHARS.length)]
+        )
+        .join('');
+      frame++;
+      setTimeout(tick, 70);
+    };
+    tick();
   }
 
+  if (el) {
+    // Set initial color
+    if (colors[0]) el.style.setProperty('--current-color', colors[0]);
+
+    setInterval(() => {
+      const color = colors.length > 0 ? colors[idx % colors.length] : null;
+      glitchTo(words[idx], color);
+      idx = idx >= words.length - 1 ? 0 : idx + 1;
+    }, time);
+  }
 </script>
 
 <style>
-  #word-swithcher {
+  .word-switcher-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    text-shadow: rgba(255, 255, 255, 0.3) 0 0 10px;
+  }
+
+  #word-switcher {
     font-family: "Zen Dots", sans-serif;
+    color: var(--current-color, #1D9E75);
+    transition: color 0.3s ease;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: var(--current-color, #1D9E75);
+    vertical-align: middle;
+    animation: blink 1s step-end infinite;
+    transition: background-color 0.3s ease;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
   }
 </style>
