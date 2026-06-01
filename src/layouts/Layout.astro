@@ -1,5 +1,11 @@
 ---
+interface Props {
+  titulo: string;
+}
+
 import styles from "@/css/styles.css"
+
+const { titulo } = Astro.props
 ---
 
 <!doctype html>
@@ -9,9 +15,29 @@ import styles from "@/css/styles.css"
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
     <link rel="stylesheet" href={styles}>
-		<title>Portafolio</title>
+
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka:wght@300..700&family=Zen+Dots&display=swap" rel="stylesheet">
+
+		<title>{titulo}</title>
 	</head>
 	<body>
+		<style>
+			.global-bg {
+				z-index: -1;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: #020024;
+				background: linear-gradient(180deg, rgb(15, 6, 24) 20%, rgb(49, 33, 56) 100%);
+			}
+		</style>
+		<div class="global-bg"></div>
 		<slot />
 	</body>
 </html>

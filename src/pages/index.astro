@@ -3,9 +3,8 @@ import Layout from '@/layouts/Layout.astro'
 
 import TitleSection from '@/components/common/TitleSection.astro'
 import VideoFaderGallery from '@/components/common/VideoFaderGallery.astro';
+import Hero from '@/components/Hero.astro';
 
-import LogoAnim from '@/components/common/LogoAnim.astro';
-import WordSwitcher from '@/components/common/WordSwitcher.astro';
 import BubbleGraph from '@/components/common/BubbleGraph.astro';
 
 import DevMainProjects from '@/components/section_dev/MainProjectsContainer/index.astro'
@@ -15,7 +14,7 @@ import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.
 import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
 ---
 
-<Layout>
+<Layout titulo='Sergio Palacios'>
   <header>
     Header
     - Logotipo
@@ -27,27 +26,7 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
       * Blog?
   </header>
 
-  <section>
-    <div>
-      <LogoAnim size={300}/>
-    </div>
-    <div>
-      <h1>Sergio Palacios</h1>
-      <div>
-        <WordSwitcher 
-          words={["Programador","Músico","Videojuegos","Modelado 3D", "Animación", "Multimedia", "Audiovisuales"]}
-          time={1100}
-        />
-      </div>
-      <p>Ingeniero multimedia, apasionado por el entretenimiento y contar buenas historias.</p>
-      <ul>
-        <li>Github</li>
-        <li>Sketchfab</li>
-        <li>Linkedin</li>
-        <li>Instagram</li>
-      </ul>
-    </div>
-  </section>
+  <Hero />
 
   <section>
     <TitleSection
