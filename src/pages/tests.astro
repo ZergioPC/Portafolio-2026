@@ -1,7 +1,7 @@
 ---
-import LogoAnim from "@/components/common/LogoAnim.astro"
-import BubbleGraph from "@/components/common/BubbleGraph.astro"
-import WordSwitcher from "@/components/common/WordSwitcher.astro"
+import LogoAnim from "@/components/custom/LogoAnim.astro"
+import BubbleGraph from "@/components/custom/BubbleGraph.astro"
+import WordSwitcher from "@/components/custom/WordSwitcher.astro"
 
 ---
 <BubbleGraph
@@ -25,9 +25,3 @@ import WordSwitcher from "@/components/common/WordSwitcher.astro"
   colorRing="rgba(255,255,255,0.45)"
   colorShadow="rgba(124,108,252,0.0)"
 />
-
-<p>
-  <WordSwitcher 
-    words={["pep","azucar","jamon"]}
-  />
-</p>
