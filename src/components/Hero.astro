@@ -1,6 +1,7 @@
 ---
 import LogoAnim from "@/components/custom/LogoAnim.astro";
-import WordSwitcher from "@/components/custom/WordSwitcher.astro";
+import WordSwitcher from "@/components/custom/WordSwitcher.astro"; 
+import Container from "@/components/Container.astro";
 
 import IconLinkedin from "@/components/Icons/IconLinkedin.astro";
 import IconGithub from "@/components/Icons/IconGithub.astro";
@@ -14,11 +15,16 @@ import IconIg from "@/components/Icons/IconIg.astro";
     <div class="content">
       <h1 class="name">Sergio Palacios</h1>
       <div class="role">
+
+      <Container 
+        border_radius={15}
+      >
         <WordSwitcher 
           words={["Programador","Músico","Videojuegos","Modelado 3D", "Animación", "Multimedia", "Audiovisuales"]}
           colors={["#1D9E75", "#7F77DD", "#D85A30"]}
           time={3500}
         />
+      </Container>
       </div>
       <p class="description">Ingeniero multimedia, apasionado por el entretenimiento y contar buenas historias.</p>
       <ul class="social-links">
@@ -60,13 +66,12 @@ import IconIg from "@/components/Icons/IconIg.astro";
   .name {
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 700;
-    margin: 0 0 0.5rem;
+    margin: 10px 0;
     line-height: 1.1;
   }
 
   .role {
     font-size: clamp(1.2rem, 3vw, 2rem);
-    margin-bottom: 1.5rem;
   }
 
   .description {
