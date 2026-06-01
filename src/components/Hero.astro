@@ -1,4 +1,8 @@
 ---
+interface Props {
+  id?: string;
+}
+
 import LogoAnim from "@/components/custom/LogoAnim.astro";
 import WordSwitcher from "@/components/custom/WordSwitcher.astro"; 
 import Container from "@/components/Container.astro";
@@ -6,9 +10,11 @@ import Container from "@/components/Container.astro";
 import IconLinkedin from "@/components/Icons/IconLinkedin.astro";
 import IconGithub from "@/components/Icons/IconGithub.astro";
 import IconIg from "@/components/Icons/IconIg.astro";
+
+const { id } = Astro.props
 ---
 
-<section>
+<section id={id}>
     <div class="logo-wrapper">
       <LogoAnim size={300}/>
     </div>

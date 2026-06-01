@@ -1,6 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
+import Header from '@/components/Header.astro';
+
 import TitleSection from '@/components/custom/TitleSection.astro'
 import VideoFaderGallery from '@/components/custom/VideoFaderGallery.astro';
 import Hero from '@/components/Hero.astro';
@@ -15,20 +17,11 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
 ---
 
 <Layout titulo='Sergio Palacios'>
-  <header>
-    Header
-    - Logotipo
-    - Sections
-      * Dev
-      * Music
-      * Animacion
-      * 3d model
-      * Blog?
-  </header>
+  <Header />
 
-  <Hero />
+  <Hero id="inicio" />
 
-  <section>
+  <section id="programacion">
     <TitleSection
       titulo="Programación"
     >
@@ -60,7 +53,7 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
     <DevOtherProjects />
   </section>
 
-  <section>
+  <section id="musica">
     <TitleSection
       titulo="Producción Musical"
     >
@@ -69,7 +62,7 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
     <MusicVideoPlayer />
   </section>
 
-  <section>
+  <section id="animacion">
     <VideoFaderGallery
       videos={["crc3zlX2z3E", "KGOT1JO_v28", "fzZx6tQ_jLc"]}
       text="Animación 3D"
@@ -82,7 +75,7 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
     <Models3DContainer />
   </section>
 
-  <section>
+  <section id="blog">
     Blogs?
   </section>
 

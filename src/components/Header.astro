@@ -1,0 +1,77 @@
+---
+interface Link {
+  name: string;
+  url: string;
+}
+
+interface Props {
+  links?: Link[];
+  id?: string;
+}
+
+const defaultLinks: Link[] = [
+  { name: 'Inicio', url: '#inicio' },
+  { name: 'Programación', url: '#programacion' },
+  { name: 'Música', url: '#musica' },
+  { name: 'Animación', url: '#animacion' },
+  { name: 'Blog', url: '#blog' },
+];
+
+const { links = defaultLinks } = Astro.props;
+---
+
+<header>
+  <nav>
+    <ul>
+      {links.map((link) => (
+        <li><a href={link.url}>{link.name}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  header {
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: transparent;
+    background: linear-gradient(0deg, #ffffff00 0%, #000 80%);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  li a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 400;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  li a:hover {
+    color: #fff;
+    border-bottom-color: #b3aaff;
+    text-shadow: 0 0 8px rgba(179, 170, 255, 0.6),
+                 0 0 16px rgba(179, 170, 255, 0.3);
+  }
+</style>
