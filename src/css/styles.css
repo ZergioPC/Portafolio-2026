@@ -46,6 +46,10 @@ h1, h2, h3, h4 {
   font-family: "Bubblegum Sans", sans-serif;
 }
 
+h3 {
+  font-size: 2em;
+}
+
 .section-class {
   display: flex;
   align-items: center;
