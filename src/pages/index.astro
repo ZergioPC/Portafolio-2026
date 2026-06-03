@@ -16,6 +16,7 @@ import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/in
 
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
 import ContainerHover from '@/components/ContainerHover.astro';
+import Container from '@/components/Container.astro';
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -23,7 +24,7 @@ import ContainerHover from '@/components/ContainerHover.astro';
 
   <Hero id="inicio" />
 
-  <section class="section-class">
+  <section class="section-class" id="programacion">
     <ContainerHover 
       border_radius={15}
       padding_value={50}
@@ -59,10 +60,17 @@ import ContainerHover from '@/components/ContainerHover.astro';
     </ContainerHover>
   </section>
 
-
-
-  <section id="programacion">
+  <section class="aux_1">
+    <h2 style="margin-bottom: 2em; text-align: center;">Proyectos Principales</h2>
     <DevMainProjects />
+  </section>
+  <style>
+    .aux_1{
+      margin: 25px;
+    }
+  </style>
+
+  <section>
     <DevOtherProjects />
   </section>
 

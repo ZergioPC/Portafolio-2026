@@ -1,5 +1,4 @@
 ---
-//const { isOpen } = Astro.props
 ---
 <article {...Astro.props}>
   <div>
@@ -15,10 +14,9 @@
 <style>
   /* Tarjeta */
   article {
-    --size-value: 400px;
+    --size-value: clamp(280px, 80vw, 400px);
 
     height: var(--size-value);
-    background-color: gray;
     border-radius: 20px;
     transition: 300ms;
     overflow: hidden;
@@ -48,6 +46,7 @@
     cursor: pointer;
     background-color: #fff;
     overflow: hidden;
+    transition: 300ms;
   }
 
   .content {
@@ -56,6 +55,12 @@
     flex-direction: column;
     justify-content: flex-end;
     padding: 15px;
-    background-color: aqua;
+    font-size: 1.5em;
+
+    border: solid 1px #ffffff88;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    
+    transition: 300ms;
   }
 </style>

@@ -21,16 +21,11 @@ const { id } = Astro.props
     <div class="content">
       <h1 class="name">Sergio Palacios</h1>
       <div class="role">
-
-      <Container 
-        border_radius={15}
-      >
-        <WordSwitcher 
-          words={["Programador","Músico","Videojuegos","Modelado 3D", "Animación", "Multimedia", "Audiovisuales"]}
-          colors={["#1D9E75", "#7F77DD", "#D85A30"]}
-          time={3500}
-        />
-      </Container>
+      <WordSwitcher 
+        words={["Programador","Músico","Videojuegos","Modelado 3D", "Animación", "Multimedia", "Audiovisuales"]}
+        colors={["#1D9E75", "#7F77DD", "#D85A30"]}
+        time={3500}
+      />
       </div>
       <p class="description">Ingeniero multimedia, apasionado por el entretenimiento y contar buenas historias.</p>
       <ul class="social-links">
@@ -95,25 +90,6 @@ const { id } = Astro.props
     display: flex;
     gap: 1.25rem;
     justify-content: center;
-  }
-
-  .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: background 0.3s, transform 0.3s, border-color 0.3s;
-    padding: 12px;
-  }
-
-  .social-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-3px);
   }
 
   .social-icon svg {

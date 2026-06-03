@@ -13,10 +13,15 @@ import imaginatio_logo from "@/assets/dev/main_projects/imaginatio/logo_v01.png"
 
 import styles from "./styles.module.css"
 import CardMainProject from "@/components/section_dev/CardMainProject/index.astro"
+import ArrowBack from "@/components/Icons/ArrowBack.astro"
+
 ---
 
 <div class="main-container">
-  <button id="btnReset">Back</button>
+  <button id="btnReset">    
+    <ArrowBack 
+    />
+  </button>
 
   <CardMainProject data-dev-card data-dev-index="0"  card-state="default">
     <div slot="portada">
@@ -28,7 +33,7 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
     </div>
     <div slot="content">
       <a 
-        class="icon"
+        class="social-icon"
         target="_blank"
         href="https://zergiopc.itch.io/how-not-to-survive-a-robot-invasion" 
       >
@@ -47,7 +52,7 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
     </div>
     <div slot="content">
       <a 
-        class="icon"
+        class="social-icon"
         target="_blank"
         href="https://github.com/ZergioPC/UMNG_Imaginatio" 
       >
@@ -66,12 +71,17 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
   .main-container {
     position: relative;
     display: flex;
+    width: min-content;
+    margin: 0 auto;
     align-items: center;
     justify-content: center;
     gap: 10px;
   }
 
-  .icon {
+  a.icon {
+    display: inline-block;
+    height: 40px;
+    aspect-ratio: 1/1;
     color: blueviolet;
     fill: blueviolet;
     text-decoration: none;
@@ -85,7 +95,26 @@ import CardMainProject from "@/components/section_dev/CardMainProject/index.astr
   #btnReset {
     z-index: 3;
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 10px;
+    left: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+
+    opacity: 0%;
+    transition-duration: 200ms;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  #btnReset:hover {
+    background: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
   }
 </style>
