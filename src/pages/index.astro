@@ -25,7 +25,9 @@ import Division from '@/components/utils/Division.astro';
 
   <Hero id="inicio" />
 
-  <section class="section-class" id="programacion">
+  <div id="programacion"></div>
+
+  <section class="section-class">
     <ContainerHover 
       border_radius={15}
       padding_value={50}
@@ -77,12 +79,23 @@ import Division from '@/components/utils/Division.astro';
     <DevOtherProjects />
   </section>
 
-  <section id="musica">
-    <TitleSection
-      titulo="Producción Musical"
+  <div id="musica"></div>
+  <Division width_val={0} height_val={30} />
+
+  <section class="section-class">
+    <Container
+      border_radius = {20},
+      padding_value = {30},
     >
-      <p>Lo que inicia como un Hobbie desde 2017 hoy se ha convertido en una de mis fortalezas en la <strong>Multimedia.</strong> Cuento con experiencia en <strong>DAWs</strong> como <a href="https://www.image-line.com/">Fl Studio</a> y <a href="https://www.reaper.fm/">Reaper</a>, conocimientos en teoría músical y sobretodo una gran pasión por la música.</p>
-    </TitleSection>
+      <TitleSection
+        titulo="Producción Musical"
+      >
+        <p>Lo que inicia como un Hobbie desde 2017 hoy se ha convertido en una de mis fortalezas en la <strong>Multimedia.</strong> Cuento con experiencia en <strong>DAWs</strong> como <a href="https://www.image-line.com/">Fl Studio</a> y <a href="https://www.reaper.fm/">Reaper</a>, conocimientos en teoría músical y sobretodo una gran pasión por la música.</p>
+      </TitleSection>
+    </Container>
+  </section>
+  
+  <section>
     <MusicVideoPlayer />
   </section>
 
