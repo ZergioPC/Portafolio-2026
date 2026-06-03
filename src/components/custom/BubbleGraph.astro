@@ -113,11 +113,10 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
 <div
   class="bubble-graph-wrapper"
   style={`
-    width: ${width}px;
-    max-width: 100%;
+    width: 100%;
+    aspect-ratio: ${width} / ${height};
     --accent:     ${colorAccent};
     --accent-hi:  ${colorAccentHi};
-    --label-col:  ${colorLabel};
     --ring-col:   ${colorRing};
     --shadow-col: ${colorShadow};
   `}
@@ -125,8 +124,6 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
   <svg
     class="bubble-graph"
     viewBox={`0 0 ${width} ${height}`}
-    width={width}
-    height={height}
     aria-label="Bubble graph"
     role="img"
   >
@@ -152,6 +149,14 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
       const item = node.data as RawNode;
       const innerR = node.r - imageInset;
       const innerD = innerR * 2;
+      const label = item.label;
+      const lfs = 14;
+      const lcw = 8;
+      const lpx = 8;
+      const lpy = 4;
+      const ltw = label ? label.length * lcw : 0;
+      const lbw = ltw + lpx * 2;
+      const lbh = lfs + lpy * 2;
       return (
         <g
           class="bubble"
@@ -202,15 +207,25 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
           />
 
           <!-- Label tooltip -->
-          {item.label && (
-            <text
-              x={node.x}
-              y={node.y}
-              text-anchor="middle"
-              class="bubble__label"
-            >
-              {item.label}
-            </text>
+          {label && (
+            <g class="bubble__label-group">
+              <rect
+                x={node.x - lbw / 2}
+                y={node.y - lbh / 2}
+                width={lbw}
+                height={lbh}
+                rx={4}
+                class="bubble__label-bg"
+              />
+              <text
+                x={node.x}
+                y={node.y + 5}
+                text-anchor="middle"
+                class="bubble__label"
+              >
+                {label}
+              </text>
+            </g>
           )}
         </g>
       );
@@ -225,7 +240,6 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
        Fallbacks are kept here as a safety net.                  */
     --accent:     #7c6cfc;
     --accent-hi:  #b3aaff;
-    --label-col:  #e8e4ff;
     --ring-col:   rgba(255, 255, 255, 0.45);
     --shadow-col: rgba(124, 108, 252, 0.7);
 
@@ -286,23 +300,30 @@ const uid = `bg-${Math.random().toString(36).slice(2, 7)}`;
   }
 
   /* ── Label ────────────────────────────────────────────────── */
-  .bubble__label {
-    font-family: 'DM Mono', 'Courier New', monospace;
-    font-size: 20px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    fill: var(--label-col);
+  .bubble__label-group {
     opacity: 0;
     transition: opacity 0.2s ease;
     pointer-events: none;
-    user-select: none;
-    text-shadow: #fff 1px 1px 0px ;
   }
 
-  .bubble:hover .bubble__label,
-  .bubble:focus-within .bubble__label,
-  .bubble--active .bubble__label {
+  .bubble:hover .bubble__label-group,
+  .bubble:focus-within .bubble__label-group,
+  .bubble--active .bubble__label-group {
     opacity: 1;
+  }
+
+  .bubble__label-bg {
+    fill: #000;
+  }
+
+  .bubble__label {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    fill: #fff;
+    user-select: none;
+    dominant-baseline: central;
   }
 
   /* Keep the ring highlight while a bubble is pinned active */
