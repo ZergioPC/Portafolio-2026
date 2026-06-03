@@ -45,3 +45,17 @@ html, body {
 h1, h2, h3, h4 {
   font-family: "Bubblegum Sans", sans-serif;
 }
+
+.section-class {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0px 30px;
+  overflow: hidden;
+}
+
+.two-columns-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

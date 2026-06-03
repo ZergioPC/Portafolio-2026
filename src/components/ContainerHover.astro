@@ -1,18 +1,28 @@
 ---
 interface Props {
   border_radius: number;
+  padding_value: number;
 }
 
-const { border_radius = 0 } = Astro.props
+const { 
+  border_radius = 0,
+  padding_value = 0,
+} = Astro.props
 ---
 
-<div class="global-container">
+<div 
+  class="global-container" 
+  style={"padding: " + padding_value + "px;"}
+>
   <slot />
 </div>
 
 <style define:vars={{ border_radius }}>
   .global-container {
+    box-sizing: border-box;
     display: inline-block;
+    width: 100%;
+    height: 100%;
 
     /* Safe way to append 'px' to an Astro define:vars number */
     border-radius: calc(var(--border_radius) * 1px);

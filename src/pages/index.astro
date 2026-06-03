@@ -1,6 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
+import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
+
 import Header from '@/components/Header.astro';
 
 import TitleSection from '@/components/custom/TitleSection.astro'
@@ -13,7 +15,7 @@ import DevMainProjects from '@/components/section_dev/MainProjectsContainer/inde
 import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
-import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
+import ContainerHover from '@/components/ContainerHover.astro';
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -21,13 +23,45 @@ import Models3DContainer from "@/components/section_model3d/Models3DContainer/in
 
   <Hero id="inicio" />
 
-  <section id="programacion">
-    <TitleSection
-      titulo="Programación"
+  <section class="section-class">
+    <ContainerHover 
+      border_radius={15}
+      padding_value={50}
     >
-      <p>Es una de mis principales habilidades, cuento con experiencia en el <strong>desarrollo de videojuegos</strong> y en la <strong>programación web.</strong> habiendo desarrollado proyectos desde el bocetado inicial hasta la entrega final, y de ser necesario, iteraciones para mejorar o agregar funcionalidades nuevas.</p>
-    </TitleSection>
+      <div class="two-columns-grid">
+        <TitleSection
+          titulo="Programación"
+        >
+          <p>Es una de mis principales habilidades, cuento con experiencia en el <strong>desarrollo de videojuegos</strong> y en la <strong>programación web.</strong> habiendo desarrollado proyectos desde el bocetado inicial hasta la entrega final, y de ser necesario, iteraciones para mejorar o agregar funcionalidades nuevas.</p>
+        </TitleSection>
+        <BubbleGraph
+          items={[
+            { image: "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
+            { image: "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
+            { image: "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
+            { image: "/third_part_logos/postgresql.png",  size: 30,  label: 'PostgreSQL'},
+            { image: "/third_part_logos/fastapi.svg",  size: 40,  label: 'FastApi'},
+            { image: "/third_part_logos/astro.png",  size: 30,  label: 'Astro'},
+            { image: "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
+            { image: "/third_part_logos/react-logo.svg",  size: 50,  label: 'React'},
+            { image: "/third_part_logos/tux-linux.svg",  size: 30,  label: 'Linux'},
+            { image: "/third_part_logos/ts-logo-128.svg",  size: 20,  label: 'Typescript'},
+          ]}
+          width={700}
+          height={500}
+          colorAccent="#7c6cfc"
+          colorAccentHi="#b3aaff"
+          colorLabel="#000"
+          colorRing="rgba(255,255,255,0.45)"
+          colorShadow="rgba(124,108,252,0.0)"
+        />
+      </div>
+    </ContainerHover>
+  </section>
 
+
+
+  <section id="programacion">
     <DevMainProjects />
     <BubbleGraph
       items={[
