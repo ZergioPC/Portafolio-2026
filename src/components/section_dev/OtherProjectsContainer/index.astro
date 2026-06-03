@@ -33,7 +33,6 @@ const repos_result = repos_response.filter(repo => validarRepo(repo.id))
 
 
 <!-- MARK: Componente -->
-<h3 style="text-align: center;">Otros Proyectos</h3>
 <div class="projects-container">
   {repos_result.map(repo => (
     <article>

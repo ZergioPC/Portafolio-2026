@@ -17,6 +17,7 @@ import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/in
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
 import ContainerHover from '@/components/ContainerHover.astro';
 import Container from '@/components/Container.astro';
+import Division from '@/components/utils/Division.astro';
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -60,17 +61,19 @@ import Container from '@/components/Container.astro';
     </ContainerHover>
   </section>
 
-  <section class="aux_1">
-    <h3 style="margin-bottom: 2em; text-align: center;">Proyectos Principales</h2>
-    <DevMainProjects />
-  </section>
-  <style>
-    .aux_1{
-      margin: 25px;
-    }
-  </style>
+  <Division width_val={0} height_val={30} />
 
   <section>
+    <h3 style="text-align: center;">Proyectos Principales</h2>
+    <Division width_val={0} height_val={20} />
+    <DevMainProjects />
+  </section>
+
+  <Division width_val={0} height_val={30} />
+
+  <section>
+    <h3 style="text-align: center;">Otros Proyectos</h3>
+    <Division width_val={0} height_val={20} />
     <DevOtherProjects />
   </section>
 

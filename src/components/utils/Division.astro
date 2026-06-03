@@ -1,0 +1,25 @@
+---
+interface Props {
+  width_val: number,
+  height_val: number
+}
+
+const {
+  width_val,
+  height_val
+} = Astro.props
+
+---
+
+<div></div>
+
+<style define:vars={{ width_val, height_val }}>
+  div {
+    display: block;
+    margin: 0;
+    padding: 0%;
+
+    width: calc(var(--width_val) * 1px);
+    height: calc(var(--height_val) * 1px);
+  }
+</style>
