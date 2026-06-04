@@ -19,3 +19,11 @@
   font-size: 1.2em;
   text-align: center;
 }
+
+@media (max-width: 640px) {
+  .sketchfab-embed-wrapper {
+    margin: 0 30px;
+    border-radius: 15px;
+    border: solid #ffffff7a 1px;
+  }
+}
