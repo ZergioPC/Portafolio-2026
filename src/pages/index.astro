@@ -23,6 +23,7 @@ import Container from '@/components/Container.astro';
 import Division from '@/components/utils/Division.astro';
 import FormalList from '@/components/FormalList.astro';
 import IconsList from '@/components/IconsList.astro';
+import SeeMore from '@/components/custom/SeeMore.astro';
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -196,10 +197,28 @@ import IconsList from '@/components/IconsList.astro';
   <Division width_val={0} height_val={30} />
 
   <section>
-    <h3 style="text-align: center;">Modelos 3D</h3>
+    <div class="aux-title-seemore">
+      <h3 style="text-align: center;">Modelos 3D</h3>
+      <SeeMore url='https://sketchfab.com/zergiopc'/>
+    </div>
     <Division width_val={0} height_val={20} />
     <Models3DContainer />
   </section>
+  <style>
+    .aux-title-seemore {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    @media (max-width: 640px) {
+      .aux-title-seemore {
+        flex-direction: column;
+        align-items: center;
+      } 
+    }
+  </style>
 
   <section id="blog">
     Blogs?

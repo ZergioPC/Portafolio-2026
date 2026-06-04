@@ -1,0 +1,53 @@
+---
+interface Props {
+  url: string
+}
+
+import IconPlus from "../Icons/IconPlus.astro";
+
+const { url } = Astro.props
+---
+<a href={url} target="_blank">
+  <span>Ver más</span>
+  <IconPlus />
+</a>
+
+<style>
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  a:hover {
+    background: rgba(179, 170, 255, 0.12);
+    border-color: #b3aaff;
+    color: #b3aaff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(179, 170, 255, 0.2);
+  }
+
+  a:active {
+    transform: translateY(0);
+  }
+
+  a :global(svg) {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  a:hover :global(svg) {
+    transform: translateX(2px);
+  }
+</style>
