@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 
 import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
+import SocialMediaGallery from '@/components/custom/SocialMediaGallery.astro';
 
 import Header from '@/components/Header.astro';
 
@@ -24,6 +25,16 @@ import Division from '@/components/utils/Division.astro';
   <Header />
 
   <Hero id="inicio" />
+
+  <Division width_val={0} height_val={20} />
+  <h2 style="text-align: center;">Proyectos en Redes</h2>
+  <Division width_val={0} height_val={20} />
+
+  <section class="section-class">
+    <SocialMediaGallery />
+  </section>
+
+  <Division width_val={0} height_val={30} />
 
   <div id="programacion"></div>
 
@@ -109,10 +120,23 @@ import Division from '@/components/utils/Division.astro';
       text="Animación 3D"
       subtext="Mi mayor sueño ha sido ser animador, darle vida a historias a travez del 3d es una de mis cosas favoritas."
     />
-    Animacion
-    - Descripcion
-    - Proyectos en IG y YT
+  </section>
 
+  <Division width_val={0} height_val={30} />
+
+  <section class="section-class">
+    <Container border_radius={20} padding_value={30}>
+      <TitleSection titulo="">
+        <p>La animación 3D es una de mis pasiones más grandes. He trabajado con <strong>Blender</strong>, <strong>Maya</strong> y <strong>After Effects</strong> en proyectos que van desde modelado low-poly hasta animación de personajes. Mi objetivo es contar historias a través del arte digital, combinando técnicas tradicionales con tecnología moderna para crear piezas visuales únicas.</p>
+      </TitleSection>
+    </Container>
+  </section>
+
+  <Division width_val={0} height_val={30} />
+
+  <section>
+    <h3 style="text-align: center;">Modelos 3D</h3>
+    <Division width_val={0} height_val={20} />
     <Models3DContainer />
   </section>
 
