@@ -38,8 +38,11 @@ if ($btnReset instanceof HTMLButtonElement) {
   })
 }
 
+const isDesktop = window.matchMedia("(min-width: 769px)")
+
 $cards.forEach(card =>{
   card.addEventListener("click", ()=>{
+    if (!isDesktop.matches) return
     controlerUpdate(Number(card.getAttribute("data-dev-index")))
     cardsUpdate()    
   })

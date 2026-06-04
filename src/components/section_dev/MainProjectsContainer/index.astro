@@ -117,4 +117,19 @@ import ArrowBack from "@/components/Icons/ArrowBack.astro"
     border-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-3px);
   }
+
+  @media (max-width: 768px) {
+    .main-container {
+      flex-direction: column;
+      width: 100%;
+      gap: 16px;
+    }
+
+    #btnReset {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+    }
+  }
 </style>

@@ -47,7 +47,7 @@
   left: 0;
   aspect-ratio: 1/1.5;
   height: auto;
-  width: 100px;
+  width: clamp(60px, 25%, 100px);
   animation-name: card-game-anim;
   animation-duration: 3.5s;
   animation-iteration-count: infinite;
