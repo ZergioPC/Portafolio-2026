@@ -1,0 +1,80 @@
+---
+interface Iconos {
+  name: string,
+  url: string,
+  image: string,
+}
+
+interface Props {
+  items: Iconos[],
+  border_radius?: number,
+  blur?: number,
+}
+
+const { items, border_radius = 16, blur = 8 } = Astro.props
+---
+
+<ul>
+  {items.map(item => 
+    <li style={`border-radius: ${border_radius}px;`}>
+      <a href={item.url} target="_blank" rel="noopener noreferrer">
+        <img src={item.image} alt={item.name}>
+        <span>{item.name}</span>
+      </a>
+    </li>
+  )}
+</ul>
+
+<style>
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(100px, 15%, 140px), 1fr));
+    gap: clamp(12px, 2vw, 24px);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur({blur}px);
+    -webkit-backdrop-filter: blur({blur}px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+  }
+
+  img {
+    width: 60%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  span {
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    text-align: center;
+    line-height: 1.2;
+  }
+</style>

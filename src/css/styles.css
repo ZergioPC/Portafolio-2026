@@ -64,6 +64,11 @@ h3 {
   grid-template-columns: 1fr 1fr;
 }
 
+.two-columns-grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+}
+
 .social-icon {
   display: flex;
   align-items: center;

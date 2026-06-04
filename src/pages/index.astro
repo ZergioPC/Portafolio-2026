@@ -19,6 +19,8 @@ import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.
 import ContainerHover from '@/components/ContainerHover.astro';
 import Container from '@/components/Container.astro';
 import Division from '@/components/utils/Division.astro';
+import FormalList from '@/components/FormalList.astro';
+import IconsList from '@/components/IconsList.astro';
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -32,6 +34,54 @@ import Division from '@/components/utils/Division.astro';
 
   <section class="section-class">
     <SocialMediaGallery />
+  </section>
+
+  <Division width_val={0} height_val={30} />
+  <h2 style="text-align: center;">Skills</h2>
+  <Division width_val={0} height_val={20} />
+
+  <section class="section-class">
+    <div 
+      class="two-columns-grid-2"
+      style="gap: 20px;"
+    >
+      <div>
+        <h3>Comercial</h3>
+        <Division width_val={0} height_val={10} />
+        <FormalList 
+          radius="15px"
+          items={[
+            "Adobe After Effects",
+            "Adobe Illustrator",
+            "Adobe Photoshop",
+            "Adobe Premiere",
+            "Adobe Substance",
+            "Autodesk Maya 3D",
+            "Unity Engine",
+            "Microsoft Word",
+            "Microsoft Powerpoint",
+            "Microsoft Excel",
+          ]}
+        />
+      </div>
+      <div>
+        <h3>Open Source</h3>
+        <Division width_val={0} height_val={10} />
+        <IconsList
+          border_radius={15}
+          blur={5} 
+          items={[
+            { name: "Blender", url: "blender.org", image: "/third_part_logos/blender_icon_512x512.png" },
+            { name: "GIMP", url: "gimp.org", image: "/third_part_logos/gimp.png" },
+            { name: "Godot", url: "godotengine.org", image: "/third_part_logos/godot.svg" },
+            { name: "Inkscape", url: "inkscape.org", image: "/third_part_logos/Inkscape_Logo.svg.png" },
+            { name: "Krita", url: "krita.org", image: "/third_part_logos/krita.png" },
+            { name: "Linux", url: "linuxfoundation.org", image: "/third_part_logos/tux-linux.svg" },
+            { name: "Reaper", url: "reaper.fm", image: "/third_part_logos/reaper.png" },
+          ]}
+        />
+      </div>
+    </div>
   </section>
 
   <Division width_val={0} height_val={30} />
@@ -61,6 +111,7 @@ import Division from '@/components/utils/Division.astro';
             { image: "/third_part_logos/react-logo.svg",  size: 50,  label: 'React'},
             { image: "/third_part_logos/tux-linux.svg",  size: 30,  label: 'Linux'},
             { image: "/third_part_logos/ts-logo-128.svg",  size: 20,  label: 'Typescript'},
+            { image: "/third_part_logos/docker.png",  size: 20,  label: 'Docker'},
           ]}
           width={700}
           height={500}
