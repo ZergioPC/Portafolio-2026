@@ -4,6 +4,37 @@ import musicData from "@/db/music.json"
 const songs: Song[] = musicData
 let currentId: string | null = null
 
+function auxGetSongDate(date:string): string{
+  switch (date.slice(0, 2)) {
+    case "01":
+      return "Enero " + date.slice(-4);
+    case "02":
+      return "Febrero " + date.slice(-4);
+    case "03":
+      return "Marzo " + date.slice(-4);
+    case "04":
+      return "Abril " + date.slice(-4);
+    case "05":
+      return "Mayo " + date.slice(-4);
+    case "06":
+      return "Junio " + date.slice(-4);
+    case "07":
+      return "Julio " + date.slice(-4);
+    case "08":
+      return "Agosto " + date.slice(-4);
+    case "09":
+      return "Septiembre " + date.slice(-4);
+    case "10":
+      return "Octubre " + date.slice(-4);
+    case "11":
+      return "Noviembre " + date.slice(-4);
+    case "12":
+      return "Diciembre " + date.slice(-4);
+    default:
+      return date;
+  }
+}
+
 function auxGetSongInfo(id: string): Song {
   const songFind = songs.find(item => item.id === id)
   return songFind ?? { id: "", titulo: "No Encontrado", type: "", genere: "", release: "00/00" }
@@ -22,10 +53,10 @@ function uiSetInfo(song: Song): void {
   const $release = document.getElementById("infoRelease")
   const $tags = document.getElementById("infoTags")
 
+  if ($release) $release.innerText = auxGetSongDate(song.release)
+  
   if ($title && $title.innerText === song.titulo) return
-
   if ($title) $title.innerText = song.titulo
-  if ($release) $release.innerText = song.release
 
   if ($tags) {
     $tags.innerHTML = ""
