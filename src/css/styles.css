@@ -87,3 +87,11 @@ h3 {
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-3px);
 }
+
+@media (max-width: 640px) {
+  .two-columns-grid,
+  .two-columns-grid-2 {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+}
