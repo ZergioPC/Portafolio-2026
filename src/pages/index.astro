@@ -1,10 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro'
 
-import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
 import SocialMediaGallery from '@/components/custom/SocialMediaGallery.astro';
 
 import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
 
 import TitleSection from '@/components/custom/TitleSection.astro'
 import VideoFaderGallery from '@/components/custom/VideoFaderGallery.astro';
@@ -16,6 +16,8 @@ import DevMainProjects from '@/components/section_dev/MainProjectsContainer/inde
 import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/index.astro'
 
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
+import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
+
 import ContainerHover from '@/components/ContainerHover.astro';
 import Container from '@/components/Container.astro';
 import Division from '@/components/utils/Division.astro';
@@ -80,6 +82,10 @@ import IconsList from '@/components/IconsList.astro';
             { name: "Reaper", url: "reaper.fm", image: "/third_part_logos/reaper.png" },
           ]}
         />
+        <small class="legal-advice">
+          <br>
+          The icons and trademarks shown on this portfolio belong to their respective owners and are used solely for identification purposes. Their presence does not imply affiliation, endorsement, or sponsorship.
+        </small>
       </div>
     </div>
   </section>
@@ -121,6 +127,10 @@ import IconsList from '@/components/IconsList.astro';
           colorRing="rgba(255,255,255,0.45)"
           colorShadow="rgba(124,108,252,0.0)"
         />
+        <small class="legal-advice">
+          <br>
+          The icons and trademarks shown on this portfolio belong to their respective owners and are used solely for identification purposes. Their presence does not imply affiliation, endorsement, or sponsorship.
+        </small>
       </div>
     </ContainerHover>
   </section>
@@ -195,7 +205,5 @@ import IconsList from '@/components/IconsList.astro';
     Blogs?
   </section>
 
-  <footer>
-    links y demás
-  </footer>
+  <Footer />
 </Layout>

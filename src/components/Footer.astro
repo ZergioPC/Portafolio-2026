@@ -1,0 +1,150 @@
+---
+import IconGithub from './Icons/IconGithub.astro';
+import IconIg from './Icons/IconIg.astro';
+import IconItchio from './Icons/IconItchio.astro';
+import IconLinkedin from './Icons/IconLinkedin.astro';
+import IconYt from './Icons/IconYt.astro';
+import IconEmail from './Icons/IconEmail.astro';
+---
+
+<footer>
+  <div class="footer-content">
+    <div class="contact-row">
+      <p class="contact-text">¿Quieres contactarme?</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/zergiopalacios" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+          <IconIg color="rgba(255,255,255,0.8)" />
+        </a>
+        <a href="https://www.linkedin.com/in/sergiopalacios" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn">
+          <IconLinkedin color="rgba(255,255,255,0.8)" />
+        </a>
+        <a href="mailto:est.sergiod.palacios@unimilitar.edu.co" class="social-icon" aria-label="Correo electrónico">
+          <IconEmail color="rgba(255,255,255,0.8)" />
+        </a>
+      </div>
+    </div>
+
+    <div class="bottom-row">
+      <p class="copyright">Icons by SVG Repo</p>
+      <a href="#inicio" class="back-to-top" aria-label="Volver arriba">↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    margin-top: 60px;
+    padding: 40px 20px 20px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 30%, transparent 100%);
+    border-top: 1px solid rgba(255, 255, 255, 0.479);
+    backdrop-filter: blur(5px);
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .contact-text {
+    font-family: "Bubblegum Sans", sans-serif;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .social-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 10px;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .social-icon:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #b3aaff;
+    transform: translateY(-3px);
+    box-shadow: 0 0 12px rgba(179, 170, 255, 0.3);
+  }
+
+  .bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .copyright {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .back-to-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.3s, border-color 0.3s, color 0.3s;
+  }
+
+  .back-to-top:hover {
+    background: rgba(179, 170, 255, 0.2);
+    border-color: #b3aaff;
+    color: #b3aaff;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px) {
+    footer {
+      padding: 30px 16px 16px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+    }
+
+    .copyright {
+      font-size: 0.75rem;
+    }
+  }
+</style>

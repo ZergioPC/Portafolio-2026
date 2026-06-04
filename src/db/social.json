@@ -4,7 +4,7 @@
     "url": "https://www.youtube.com/@CrafterAnimation",
     "handle": "@CrafterAnimation",
     "description": "Canal de animacion 3d con estilo Minecraft",
-    "color": "#FF0000"
+    "color": "#eb8934"
   },
   {
     "platform": "instagram",
@@ -18,13 +18,13 @@
     "url": "https://www.youtube.com/@LeyendasdeBronce",
     "handle": "@LeyendasdeBronce",
     "description": "Proyecto de realización en vivo y diferido de e-sports",
-    "color": "#E4405F"
+    "color": "#a6a6a6"
   },
   {
     "platform": "youtube",
     "url": "https://www.youtube.com/@ZedrickMusic",
     "handle": "@ZedrickMusic",
     "description": "Canal de producción músical",
-    "color": "#E4405F"
+    "color": "#a44aff"
   }
 ]

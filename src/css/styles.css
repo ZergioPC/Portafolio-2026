@@ -88,6 +88,11 @@ h3 {
   transform: translateY(-3px);
 }
 
+.legal-advice {
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+
 @media (max-width: 640px) {
   .two-columns-grid,
   .two-columns-grid-2 {
