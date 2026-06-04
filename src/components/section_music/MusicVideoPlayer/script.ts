@@ -2,58 +2,94 @@ import type { Song } from "./types.d.ts"
 import musicData from "@/db/music.json"
 
 const songs: Song[] = musicData
+let currentId: string | null = null
 
-function auxGetSongInfo (id:string): Song {
+function auxGetSongInfo(id: string): Song {
   const songFind = songs.find(item => item.id === id)
-  return songFind ?? {id:"", titulo:"No Encontrado", type:"", genere:"" , release:"00/00"}
+  return songFind ?? { id: "", titulo: "No Encontrado", type: "", genere: "", release: "00/00" }
 }
 
-function uiSetYtIframe (id:string):void {
+function uiSetYtIframe(id: string): void {
   const $ytFrame = document.getElementById("ytIframe")
-  if ($ytFrame instanceof HTMLIFrameElement){
-    $ytFrame.src = `https://www.youtube.com/embed/${id}`
+  if ($ytFrame instanceof HTMLIFrameElement) {
+    $ytFrame.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`
   }
+  showLoading(true)
 }
 
-function uiSetInfo (song:Song): void {
-  const $divInfo = document.querySelector(".info")
-  if ($divInfo instanceof HTMLDivElement){
-    const h3 = document.createElement("h3")
-    const p = document.createElement("p")
-    
-    const tagsDiv = document.createElement("div")
+function uiSetInfo(song: Song): void {
+  const $title = document.getElementById("infoTitle")
+  const $release = document.getElementById("infoRelease")
+  const $tags = document.getElementById("infoTags")
+
+  if ($title && $title.innerText === song.titulo) return
+
+  if ($title) $title.innerText = song.titulo
+  if ($release) $release.innerText = song.release
+
+  if ($tags) {
+    $tags.innerHTML = ""
+    const spanGen = document.createElement("span")
+    spanGen.className = "tag"
+    spanGen.innerText = song.genere
     const spanType = document.createElement("span")
-    const spanGenere = document.createElement("time")
-
-    $divInfo.innerHTML = ""
-    
-    h3.innerText = song.titulo
-    p.innerText = song.release
-
-    spanGenere.innerText = song.genere
+    spanType.className = "tag"
     spanType.innerText = song.type
-
-    tagsDiv.appendChild(spanGenere)
-    tagsDiv.appendChild(spanType)
-      
-    $divInfo.appendChild(h3)
-    $divInfo.appendChild(p)
-    $divInfo.appendChild(tagsDiv)
+    $tags.appendChild(spanGen)
+    $tags.appendChild(spanType)
   }
 }
 
-const musicList = document.querySelectorAll(".music-list")
-
-musicList.forEach(li =>{
-  //console.log(li.dataset);
-  
-  li.addEventListener("click",()=>{
-    if (li.hasAttribute("data-yt-id")){
-      const id = li.getAttribute("data-yt-id") as string
-      const songData = auxGetSongInfo(id)
-      
-      uiSetYtIframe(id)
-      uiSetInfo(songData)
-    }
+function setActiveItem(id: string): void {
+  document.querySelectorAll(".music-list").forEach(li => {
+    li.classList.toggle("active", li.getAttribute("data-yt-id") === id)
   })
+}
+
+function loadSong(id: string): void {
+  if (id === currentId) return
+  currentId = id
+  uiSetYtIframe(id)
+  uiSetInfo(auxGetSongInfo(id))
+  setActiveItem(id)
+}
+
+const $loading = document.getElementById("ytLoading")
+
+function showLoading(show: boolean): void {
+  if ($loading) {
+    $loading.classList.toggle("visible", show)
+  }
+}
+
+function setupIframe(): void {
+  const $iframe = document.getElementById("ytIframe")
+  if ($iframe instanceof HTMLIFrameElement) {
+    $iframe.addEventListener("load", () => showLoading(false))
+  }
+}
+
+function setupSongList(): void {
+  document.querySelectorAll(".music-list").forEach(li => {
+    li.addEventListener("click", () => {
+      const id = li.getAttribute("data-yt-id")
+      if (id) loadSong(id)
+    })
+
+    li.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault()
+        li.click()
+      }
+    })
+  })
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupIframe()
+  setupSongList()
+
+  if (songs.length > 0) {
+    loadSong(songs[0].id)
+  }
 })

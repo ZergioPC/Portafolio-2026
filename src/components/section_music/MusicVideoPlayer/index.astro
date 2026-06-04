@@ -1,19 +1,37 @@
 ---
 import music_data from "@/db/music.json"
+const firstSong = music_data[0]
 ---
 <div class="video-player">
   <div class="yt-frame">
-    <iframe 
-    id="ytIframe" 
-    referrerpolicy="strict-origin-when-cross-origin"
+    <div class="yt-loading visible" id="ytLoading">
+      <span class="loading-spinner"></span>
+      <p>Cargando video...</p>
+    </div>
+    <iframe
+      id="ytIframe"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="encrypted-media"
+      loading="lazy"
+      title="YouTube video player"
     />
   </div>
+
   <div class="info">
+    <h3 id="infoTitle">{firstSong.titulo}</h3>
+    <p id="infoRelease">{firstSong.release}</p>
+    <div class="tags" id="infoTags">
+      <span class="tag">{firstSong.genere}</span>
+      <span class="tag">{firstSong.type}</span>
+    </div>
   </div>
+
   <div class="list">
-    <ul>{music_data.map(song => 
-      <li class="music-list" data-yt-id={`${song.id}`}>{song.titulo}</li>
-    )}</ul>
+    <ul>
+      {music_data.map(song =>
+        <li class="music-list" data-yt-id={song.id} tabindex="0">{song.titulo}</li>
+      )}
+    </ul>
   </div>
 </div>
 
@@ -24,21 +42,195 @@ import music_data from "@/db/music.json"
 <style>
   .video-player {
     display: grid;
-    grid-template-columns: 4fr 1fr;
-    grid-template-rows: 3fr 1fr;
-    gap: 10px;
-    max-width: 800px;
-    height: 80vh;
+    grid-template-columns: 1fr 280px;
+    gap: 16px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 20px;
   }
 
-  .yt-frame {grid-column: 1/2; grid-row: 1/2;}
-  .info {grid-column: 1/2; grid-row: 2/3;}
-  .list {grid-column: 2/3; grid-row: 1/3;}
+  .yt-frame {
+    position: relative;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
 
   .yt-frame iframe {
     border: none;
     width: 100%;
     height: 100%;
+  }
+
+  .yt-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+    color: #fff;
+  }
+
+  .yt-loading.visible {
+    opacity: 1;
+  }
+
+  .yt-loading p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .info {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #infoTitle {
+    font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+    font-family: "Bubblegum Sans", cursive;
+    font-weight: 400;
+    line-height: 1.3;
+  }
+
+  #infoRelease {
+    font-size: 0.8rem;
+    opacity: 0.6;
+  }
+
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .list {
+    grid-row: 1 / 3;
+    grid-column: 2;
+    overflow-y: auto;
+    max-height: calc(100vh - 180px);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  }
+
+  .list::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+  }
+
+  .list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .music-list {
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    font-size: 0.85rem;
+    outline: none;
+    line-height: 1.4;
+  }
+
+  .music-list:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateX(4px);
+  }
+
+  .music-list:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
+  }
+
+  .music-list.active {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .music-list.active::before {
+    content: "♪";
+    margin-right: 8px;
+  }
+
+  @media (max-width: 1024px) {
+    .video-player {
+      grid-template-columns: 1fr;
+    }
+
+    .list {
+      grid-row: auto;
+      grid-column: 1;
+      max-height: 280px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .video-player {
+      padding: 10px;
+      gap: 12px;
+    }
+
+    .info {
+      padding: 12px 14px;
+    }
+
+    .music-list {
+      font-size: 0.8rem;
+      padding: 8px 12px;
+    }
   }
 </style>
