@@ -1,0 +1,81 @@
+---
+interface Frontmater {
+	titulo: string
+	fecha: string
+	imagen: string
+	imgCaption?: string
+}
+
+interface Props {
+	frontmatter: Frontmater
+}
+
+import LogoAnim from "@/components/custom/LogoAnim.astro"
+import Footer from "@/components/Footer.astro"
+import ArrowHome from "@/components/Icons/ArrowHome.astro"
+
+import styles from "@/css/blog.css"
+
+const { titulo, imagen, fecha, imgCaption = "" } = Astro.props.frontmatter
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+    <link rel="stylesheet" href={styles}>
+
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Fredoka:wght@300..700&family=Zen+Dots&display=swap" rel="stylesheet">
+
+		<title>{titulo}</title>
+	</head>
+	
+	<body>
+		<style>
+			.global-bg {
+				z-index: -1;
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background: #020024;
+				background: linear-gradient(180deg, rgb(15, 6, 24) 20%, rgb(49, 33, 56) 100%);
+			}
+		</style>
+		<div class="global-bg"></div>
+
+		<header>
+			<div class="header-left">
+				<a href="/" class="back-link"><ArrowHome color="#fff"/></a>
+				<span class="blog-label">Blog</span>
+			</div>
+			<div class="header-right">
+				<LogoAnim size={50}/>
+			</div>
+		</header>
+
+		<main>
+			<figure class="blog-image">
+				<img src={imagen} alt={"Imagen del blog " + fecha}>
+				{imgCaption.length > 0 && <figcaption class="blog-image-advice">{imgCaption}</figcaption>}
+			</figure>
+
+			<div class="md-titulo-container">
+				<h1 class="md-titulo">{titulo}</h1>
+			</div>
+
+			<div class="md-container">
+				<slot />
+			</div>
+		</main>
+
+		<Footer />
+	</body>
+</html>
