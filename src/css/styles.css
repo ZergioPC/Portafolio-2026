@@ -46,8 +46,12 @@ h1, h2, h3, h4 {
   font-family: "Bubblegum Sans", sans-serif;
 }
 
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
 h3 {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .section-class {
