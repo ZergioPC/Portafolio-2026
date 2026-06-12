@@ -9,12 +9,11 @@ const query:GithubQueryParams = {
   direction: "desc",
   per_page: 12
 }
-// const path_repos = `https://api.github.com/users/zergiopc/repos?sort=${query.sort}&direction=${query.direction}&per_page=${query.per_page}`
-// const repos_response: GithubRepo[] = await fetch(path_repos)
-//   .then(res => res.json())
-//   .then(data => data?.documentation_url ? [] : data)
+const path_repos = `https://api.github.com/users/zergiopc/repos?sort=${query.sort}&direction=${query.direction}&per_page=${query.per_page}`
+const repos_response: GithubRepo[] = await fetch(path_repos)
+  .then(res => res.json())
+  .then(data => data?.documentation_url ? [] : data)
 
-import repos_response from "./temp.json"
 
 function validarRepo(id:number): Boolean {
   const exluded_repos = [
@@ -25,8 +24,6 @@ function validarRepo(id:number): Boolean {
 }
 
 const repos_result = repos_response.filter(repo => validarRepo(repo.id))
-
-
 
 ---
 
