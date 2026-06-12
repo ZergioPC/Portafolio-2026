@@ -14,7 +14,7 @@ import LogoAnim from "@/components/custom/LogoAnim.astro"
 import Footer from "@/components/Footer.astro"
 import ArrowHome from "@/components/Icons/ArrowHome.astro"
 
-import styles from "@/css/blog.css"
+import "@/css/blog.css"
 
 const { titulo, imagen, fecha, imgCaption = "" } = Astro.props.frontmatter
 ---
@@ -25,7 +25,6 @@ const { titulo, imagen, fecha, imgCaption = "" } = Astro.props.frontmatter
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-    <link rel="stylesheet" href={styles}>
 
 
 		<!-- Google Fonts -->

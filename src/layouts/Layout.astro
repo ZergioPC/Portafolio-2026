@@ -3,7 +3,7 @@ interface Props {
   titulo: string;
 }
 
-import styles from "@/css/styles.css"
+import "@/css/styles.css"
 
 const { titulo } = Astro.props
 ---
@@ -14,7 +14,6 @@ const { titulo } = Astro.props
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-    <link rel="stylesheet" href={styles}>
 
 
 		<!-- Google Fonts -->

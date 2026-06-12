@@ -17,6 +17,7 @@ import DevOtherProjects from '@/components/section_dev/OtherProjectsContainer/in
 
 import MusicVideoPlayer from "@/components/section_music/MusicVideoPlayer/index.astro"
 import Models3DContainer from "@/components/section_model3d/Models3DContainer/index.astro"
+import BlogPostsContainer from "@/components/section_blog/BlogPostsContainer/index.astro"
 
 import ContainerHover from '@/components/ContainerHover.astro';
 import Container from '@/components/Container.astro';
@@ -24,6 +25,21 @@ import Division from '@/components/utils/Division.astro';
 import FormalList from '@/components/FormalList.astro';
 import IconsList from '@/components/IconsList.astro';
 import SeeMore from '@/components/custom/SeeMore.astro';
+
+const blogModules = import.meta.glob('./blog/*.md', { eager: true });
+const sortedPosts = Object.values(blogModules)
+  .map(p => ({
+    url: p.url,
+    titulo: p.frontmatter.titulo,
+    imagen: p.frontmatter.imagen,
+    fecha: p.frontmatter.fecha,
+  }))
+  .sort((a, b) => {
+    const [aD, aM, aY] = a.fecha.split('/');
+    const [bD, bM, bY] = b.fecha.split('/');
+    return new Date(bY, bM - 1, bD) - new Date(aY, aM - 1, aD);
+  })
+  .slice(0, 3);
 ---
 
 <Layout titulo='Sergio Palacios'>
@@ -220,7 +236,12 @@ import SeeMore from '@/components/custom/SeeMore.astro';
   </style>
 
   <section id="blog">
-    Blogs?
+    <div class="aux-title-seemore">
+      <h3 style="text-align: center;">Blog</h3>
+      <SeeMore url='/blog' />
+    </div>
+    <Division width_val={0} height_val={25} />
+    <BlogPostsContainer posts={sortedPosts} />
   </section>
 
   <Footer />
