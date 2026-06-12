@@ -1,0 +1,58 @@
+---
+import BlogLayout from '@/layouts/BlogLayout.astro'
+import Division from '@/components/utils/Division.astro'
+import BlogPostsContainer from '@/components/section_blog/BlogPostsContainer/index.astro'
+
+interface BlogFrontmatter {
+  titulo: string
+  imagen: string
+  fecha: string
+}
+
+interface BlogModule {
+  url: string
+  frontmatter: BlogFrontmatter
+}
+
+interface PostData {
+  url: string
+  titulo: string
+  imagen: string
+  fecha: string
+}
+
+const blogModules = import.meta.glob<BlogModule>('./blog/*.md', { eager: true });
+
+const allPosts: PostData[] = Object.values(blogModules)
+  .map((p: BlogModule) => ({
+    url: p.url,
+    titulo: p.frontmatter.titulo,
+    imagen: p.frontmatter.imagen,
+    fecha: p.frontmatter.fecha,
+  }))
+  .sort((a, b) => {
+    const [aD, aM, aY] = a.fecha.split('/');
+    const [bD, bM, bY] = b.fecha.split('/');
+    return new Date(bY, bM - 1, bD) - new Date(aY, aM - 1, aD);
+  });
+---
+
+<BlogLayout title="Blog - Sergio Palacios">
+  <Division width_val={0} height_val={30} />
+  <h1 style="text-align: center;">Blog</h1>
+  <Division width_val={0} height_val={25} />
+
+  <section class="section-class">
+    <BlogPostsContainer posts={allPosts} />
+  </section>
+
+  <Division width_val={0} height_val={50} />
+</BlogLayout>
+
+<style>
+  h1 {
+    font-family: "Bubblegum Sans", sans-serif;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+</style>

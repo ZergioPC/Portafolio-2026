@@ -26,9 +26,28 @@ import FormalList from '@/components/FormalList.astro';
 import IconsList from '@/components/IconsList.astro';
 import SeeMore from '@/components/custom/SeeMore.astro';
 
-const blogModules = import.meta.glob('./blog/*.md', { eager: true });
-const sortedPosts = Object.values(blogModules)
-  .map(p => ({
+interface BlogFrontmatter {
+  titulo: string
+  imagen: string
+  fecha: string
+}
+
+interface BlogModule {
+  url: string
+  frontmatter: BlogFrontmatter
+}
+
+interface PostData {
+  url: string
+  titulo: string
+  imagen: string
+  fecha: string
+}
+
+const blogModules = import.meta.glob<BlogModule>('./blog/*.md', { eager: true });
+
+const sortedPosts: PostData[] = Object.values(blogModules)
+  .map((p: BlogModule) => ({
     url: p.url,
     titulo: p.frontmatter.titulo,
     imagen: p.frontmatter.imagen,
@@ -235,13 +254,19 @@ const sortedPosts = Object.values(blogModules)
     }
   </style>
 
-  <section id="blog">
-    <div class="aux-title-seemore">
-      <h3 style="text-align: center;">Blog</h3>
-      <SeeMore url='/blog' />
-    </div>
-    <Division width_val={0} height_val={25} />
-    <BlogPostsContainer posts={sortedPosts} />
+  <div id="blog"></div>
+  <Division width_val={0} height_val={100} />
+
+  <section class="section-class">
+    <Container border_radius={20} padding_value={30}>
+      <div class="aux-title-seemore">
+        <h2 style="text-align: center;">Blog</h2>
+        <SeeMore url='/blog' />
+      </div>
+        
+      <Division width_val={0} height_val={25} />
+      <BlogPostsContainer posts={sortedPosts} />
+    </Container>
   </section>
 
   <Footer />
