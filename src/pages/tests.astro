@@ -3,19 +3,21 @@ import LogoAnim from "@/components/custom/LogoAnim.astro"
 import BubbleGraph from "@/components/custom/BubbleGraph.astro"
 import WordSwitcher from "@/components/custom/WordSwitcher.astro"
 
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
 ---
 <BubbleGraph
   items={[
-    { image: "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
-    { image: "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
-    { image: "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
-    { image: "/third_part_logos/postgresql.png",  size: 60,  label: 'PostgreSQL'},
-    { image: "/third_part_logos/fastapi.svg",  size: 60,  label: 'FastApi'},
-    { image: "/third_part_logos/astro.png",  size: 60,  label: 'Astro'},
-    { image: "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
-    { image: "/third_part_logos/react-logo.svg",  size: 60,  label: 'React'},
-    { image: "/third_part_logos/tux-linux.svg",  size: 60,  label: 'Linux'},
-    { image: "/third_part_logos/ts-logo-128.svg",  size: 60,  label: 'Typescript'},
+    { image: BASE + "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
+    { image: BASE + "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
+    { image: BASE + "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
+    { image: BASE + "/third_part_logos/postgresql.png",  size: 60,  label: 'PostgreSQL'},
+    { image: BASE + "/third_part_logos/fastapi.svg",  size: 60,  label: 'FastApi'},
+    { image: BASE + "/third_part_logos/astro.png",  size: 60,  label: 'Astro'},
+    { image: BASE + "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
+    { image: BASE + "/third_part_logos/react-logo.svg",  size: 60,  label: 'React'},
+    { image: BASE + "/third_part_logos/tux-linux.svg",  size: 60,  label: 'Linux'},
+    { image: BASE + "/third_part_logos/ts-logo-128.svg",  size: 60,  label: 'Typescript'},
   ]}
   width={700}
   height={500}

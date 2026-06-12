@@ -44,13 +44,15 @@ interface PostData {
   fecha: string
 }
 
+const BASE = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
 const blogModules = import.meta.glob<BlogModule>('./blog/*.md', { eager: true });
 
 const sortedPosts: PostData[] = Object.values(blogModules)
   .map((p: BlogModule) => ({
     url: p.url,
     titulo: p.frontmatter.titulo,
-    imagen: p.frontmatter.imagen,
+    imagen: BASE + p.frontmatter.imagen,
     fecha: p.frontmatter.fecha,
   }))
   .sort((a, b) => {
@@ -109,13 +111,13 @@ const sortedPosts: PostData[] = Object.values(blogModules)
           border_radius={15}
           blur={5} 
           items={[
-            { name: "Blender", url: "https://blender.org", image: "/third_part_logos/blender_icon_512x512.png" },
-            { name: "GIMP", url: "https://gimp.org", image: "/third_part_logos/gimp.png" },
-            { name: "Godot", url: "https://godotengine.org", image: "/third_part_logos/godot.svg" },
-            { name: "Inkscape", url: "https://inkscape.org", image: "/third_part_logos/Inkscape_Logo.svg.png" },
-            { name: "Krita", url: "https://krita.org", image: "/third_part_logos/krita.png" },
-            { name: "Reaper", url: "https://reaper.fm", image: "/third_part_logos/reaper.png" },
-            { name: "OBS Studio", url: "https://obsproject.com", image: "/third_part_logos/obs_studio.png" },
+            { name: "Blender", url: "https://blender.org", image: BASE + "/third_part_logos/blender_icon_512x512.png" },
+            { name: "GIMP", url: "https://gimp.org", image: BASE + "/third_part_logos/gimp.png" },
+            { name: "Godot", url: "https://godotengine.org", image: BASE + "/third_part_logos/godot.svg" },
+            { name: "Inkscape", url: "https://inkscape.org", image: BASE + "/third_part_logos/Inkscape_Logo.svg.png" },
+            { name: "Krita", url: "https://krita.org", image: BASE + "/third_part_logos/krita.png" },
+            { name: "Reaper", url: "https://reaper.fm", image: BASE + "/third_part_logos/reaper.png" },
+            { name: "OBS Studio", url: "https://obsproject.com", image: BASE + "/third_part_logos/obs_studio.png" },
           ]}
         />
         <small class="legal-advice">
@@ -142,17 +144,17 @@ const sortedPosts: PostData[] = Object.values(blogModules)
         </TitleSection>
         <BubbleGraph
           items={[
-            { image: "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
-            { image: "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
-            { image: "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
-            { image: "/third_part_logos/postgresql.png",  size: 30,  label: 'PostgreSQL'},
-            { image: "/third_part_logos/fastapi.svg",  size: 40,  label: 'FastApi'},
-            { image: "/third_part_logos/astro.png",  size: 30,  label: 'Astro'},
-            { image: "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
-            { image: "/third_part_logos/react-logo.svg",  size: 50,  label: 'React'},
-            { image: "/third_part_logos/tux-linux.svg",  size: 30,  label: 'Linux'},
-            { image: "/third_part_logos/ts-logo-128.svg",  size: 20,  label: 'Typescript'},
-            { image: "/third_part_logos/docker.png",  size: 20,  label: 'Docker'},
+            { image: BASE + "/third_part_logos/js.svg",  size: 90,  label: 'Javascript'},
+            { image: BASE + "/third_part_logos/html.svg",  size: 60,  label: 'HTML'},
+            { image: BASE + "/third_part_logos/css.svg",  size: 60,  label: 'CSS'},
+            { image: BASE + "/third_part_logos/postgresql.png",  size: 30,  label: 'PostgreSQL'},
+            { image: BASE + "/third_part_logos/fastapi.svg",  size: 40,  label: 'FastApi'},
+            { image: BASE + "/third_part_logos/astro.png",  size: 30,  label: 'Astro'},
+            { image: BASE + "/third_part_logos/python.svg",  size: 60,  label: 'Python'},
+            { image: BASE + "/third_part_logos/react-logo.svg",  size: 50,  label: 'React'},
+            { image: BASE + "/third_part_logos/tux-linux.svg",  size: 30,  label: 'Linux'},
+            { image: BASE + "/third_part_logos/ts-logo-128.svg",  size: 20,  label: 'Typescript'},
+            { image: BASE + "/third_part_logos/docker.png",  size: 20,  label: 'Docker'},
           ]}
           width={700}
           height={500}
@@ -261,7 +263,7 @@ const sortedPosts: PostData[] = Object.values(blogModules)
     <Container border_radius={20} padding_value={30}>
       <div class="aux-title-seemore">
         <h2 style="text-align: center;">Blog</h2>
-        <SeeMore url='/blog' />
+        <SeeMore url={BASE + '/blog'} />
       </div>
         
       <Division width_val={0} height_val={25} />
