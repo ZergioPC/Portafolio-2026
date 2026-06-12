@@ -184,6 +184,61 @@ span {
   font-style: normal;
 }
 
+/* Contenedor opcional para darle un fondo oscuro/con imagen y que se note la transparencia */
+.contenedor-tabla {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos de la tabla minimalista */
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    
+    /* El truco del fondo blanco transparente */
+    background-color: rgba(255, 255, 255, 0.2); 
+    
+    /* Efecto Blur (Opcional, estilo Glassmorphism) */
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    
+    /* Bordes y sombras sutiles */
+    border-radius: 12px;
+    overflow: hidden; /* Para que el border-radius funcione con los encabezados */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los encabezados (Headers) */
+table th {
+    background-color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.5px;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo para las celdas de datos */
+table td {
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+/* Efecto Hover suave en las filas */
+table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #000000;
+}
+
+/* Quitar el borde inferior de la última fila */
+table tr:last-of-type td {
+    border-bottom: none;
+}
+
 .blog-image {
   position: relative;
   display: block;
